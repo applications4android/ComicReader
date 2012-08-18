@@ -1,0 +1,36 @@
+{
+  "package": "com.blogspot.applications4android.comicreader.comics",
+
+  "classes":
+  [
+    {"class" :           "GoComics.TwoCowsandaChicken" ,    "name" :              "2 Cows and a Chicken" ,    "pref" :         "2cowsandachickenPref",   "new" : "1"},
+    {"class" :                        "AGirlandHerFed" ,    "name" :                "A Girl and Her Fed" ,    "pref" :           "agirlandherfedPref"},
+    {"class" :                 "GoComics.WitoftheWorld",    "name" :       "Editorial : Wit of the World",     "pref" :           "witoftheworldPref",   "new" : "1"},
+    {"class" :                          "ASofterWorld" ,    "name" :                    "A Softer World" ,    "pref" :             "asofterworldPref"},
+    {"class" :             	           "AbstruseGoose" ,    "name" :                     "Abstruse Goose",    "pref" :            "abstrusegoosePref"},
+    {"class" :                   "GoComics.AdamatHome" ,    "name" :                         "Adam@Home" ,    "pref" :               "adamathomePref"},
+    {"class" :                       "GoComics.BigTop" ,    "name" :                           "Big Top" ,    "pref" :                   "bigtopPref"},
+    {"class" :                    "GoComics.Computoon" ,    "name" :                        "Compu-toon" ,    "pref" :                "computoonPref"},
+    {"class" :                   "GoComics.DaddysHome" ,    "name" :                      "Daddy's Home" ,    "pref" :               "daddyshomePref",   "new" : "1"},
+    {"class" :                   "OregonLive.EdgeCity" ,    "name" :                        "Edge City!" ,    "pref" :                 "edgecityPref"},
+    {"class" :                       "GoComics.FMinus" ,    "name" :                           "F Minus" ,    "pref" :                   "fminusPref"},
+    {"class" :                     "GoComics.GetaLife" ,    "name" :                        "Get a Life" ,    "pref" :                 "getalifePref"},
+    {"class" :           "OregonLive.HagarTheHorrible" ,    "name" :                "Hagar The Horrible" ,    "pref" :         "hagarthehorriblePref"},
+    {"class" :                     "GoComics.LastKiss" ,    "name" :                         "Last Kiss" ,    "pref" :                 "lastkissPref"},
+    {"class" :                               "Misfile" ,    "name" :                           "Misfile" ,    "pref" :                  "misfilePref"},
+    {"class" :                      "GoComics.RedMeat" ,    "name" :                          "Red Meat" ,    "pref" :                  "redmeatPref"},
+    {"class" :                    "SomethingofthatIlk" ,    "name" :             "Something Of That Ilk" ,    "pref" :       "somethingofthatilkPref",   "new" : "1"},
+    {"class" :             "GoComics.TheFuscoBrothers" ,    "name" :                "The Fusco Brothers" ,    "pref" :         "thefuscobrothersPref"},
+    {"class" :              "GoComics.TheFlyingMcCoys" ,    "name" :                 "The Flying McCoys" ,    "pref" :          "theflyingmccoysPref"},
+    {"class" :                "GoComics.TheGrizzwells" ,    "name" :                    "The Grizzwells" ,    "pref" :            "thegrizzwellsPref"},
+    {"class" :             "GoComics.TheHumbleStumble" ,    "name" :                "The Humble Stumble" ,    "pref" :            "humblestumblePref"},
+    {"class" :               "GoComics.TheKChronicles" ,    "name" :                  "The K Chronicles" ,    "pref" :           "thekchroniclesPref"},
+    {"class" :                "GoComics.TheKnightLife" ,    "name" :                   "The Knight Life" ,    "pref" :           "theknight_lifePref"},
+    {"class" :     "GoComics.TheLeftyBoscoPictureShow" ,    "name" :       "The LeftyBosco Picture Show" ,    "pref" :    "leftyboscopictureshowPref"},
+    {"class" :             "GoComics.TheMeaningofLila" ,    "name" :               "The Meaning of Lila" ,    "pref" :            "meaningoflilaPref"},
+    {"class" :                "GoComics.TheMiddletons" ,    "name" :                    "The Middletons" ,    "pref" :            "themiddletonsPref"},
+    {"class" :                      "GoComics.WeePals" ,    "name" :                          "Wee Pals" ,    "pref" :                  "weepalsPref"},
+    {"class" :                                  "Xkcd" ,    "name" :                              "Xkcd" ,    "pref" :                     "xkcdPref"},
+    {"class" :                                   "Zap" ,    "name" :                              "Zap!" ,    "pref" :                      "zapPref"}
+  ]
+}

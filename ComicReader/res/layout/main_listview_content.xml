@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:paddingTop="4dp" 
+	android:paddingBottom="4dp"
+	android:orientation="horizontal"
+	android:gravity="center_horizontal" >
+	<Button
+	    android:id="@+id/comic_item_latest"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:background="@drawable/butt"
+		android:lines="3"
+		android:layout_marginRight="1dp"
+		android:layout_gravity="fill"
+		android:typeface="serif"
+		android:textStyle="bold"
+		android:textColor="#ffffff"
+		android:gravity="center_vertical|center_horizontal" />
+   	<Button 
+   		android:gravity="center_vertical|center_horizontal"
+		android:id="@+id/comic_item_prev"
+		android:layout_width="45dp"
+		android:layout_height="wrap_content"
+		android:text="Prev"
+		android:background="@drawable/butt"
+		android:lines="3"
+		android:typeface="serif"
+		android:textStyle="bold"
+		android:textColor="#ffffff"
+		android:layout_marginRight="1dp" />
+	<Button 
+	    android:gravity="center_vertical|center_horizontal"
+		android:id="@+id/comic_item_fav"
+		android:layout_width="45dp"
+		android:layout_height="wrap_content"
+		android:text="Fav"
+		android:background="@drawable/butt"
+		android:lines="3"
+		android:typeface="serif"
+		android:textStyle="bold"
+		android:textColor="#ffffff"
+		android:layout_marginRight="1dp" />
+</LinearLayout>

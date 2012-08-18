@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Comic Reader</string>
+    <string name="my_comics_label">Comic Reader - My Comics</string>
+    <string name="select_comics_label">Comic Reader - Select Comics</string>
+    <string name="settings_label">Comic Reader - Settings</string>
+    <string name="share_header">ComicReader - A Great App</string>
+
+    <string name="ss_header">You are about to save this strip to</string>
+    <string name="my_comics_title">Select the comic to read the strips</string>
+    <string name="comic_settings_title">Click on the Comic to Add to My Comics</string>
+
+    <string name="my_comics_setup_msg">Getting the list of favorite comics....</string>
+    <string name="comics_selector_setup_msg">"Getting the list of all comics....</string>
+    <string name="comic_select_all_msg">Selecting all comics....</string>
+    <string name="comic_select_none_msg">Deselecting all comics....</string>
+
+    <string name="number_picker_set_text">Set</string>
+    <string name="number_picker_cancel_text">Cancel</string>
+
+    <string name="network_disconnected_message">ComicReader: Network disconnected, please connect to a network in order to continue reading comics</string>
+    <string name="network_connected_message">ComicReader: Network restored, enjoy reading your favorite comics!</string>
+
+    <string name="empty_favorite_series">\nNo comics selected.\n\nSelect comics from Menu -> Select Comics</string>
+
+    <string name="app_blog_url">https://market.android.com/details?id=com.blogspot.applications4android.comicreader</string>
+    <string name="dev_email">applications4android@gmail.com</string>
+    <string name="comic_request_msg">Hi,\n Please add the following comic(s) in this app:\n</string>
+    <string name="comic_request_subj">Comic Request</string>
+    <string name="comic_bug_report_subj">Comic Reader --- Bug Report</string>
+
+    <string name="reset_button_text">Traverse mode! Swipe left/right anywhere on the image to read next/previous strip. Swipe up/down to move to next/previous comic. Touch here to cancel.</string>
+    <string name="comic_selector_save">Save Changes</string>
+    <string name="comic_selector_cancel">Cancel</string>
+
+    <string name="comic_dnld_msg">Downloading the comic-strip....</string>
+
+    <string name="comic_clear_cache_msg">Clearing the comic cache....</string>
+    <string name="comic_cache_clean_confirmation">Are you sure you want to clean the comic\'s cache?</string>
+    <string name="comic_cache_clean_abort">Comic cache cleaning aborted</string>
+
+    <string name="clear_all_cache_success">Successfully cleaned all the caches of all comics!</string>
+    <string name="clear_all_cache_confirmation">Are you sure you want to clean the cache of all the comics?</string>
+    <string name="clear_all_cache_abort">All comic cache cleaning aborted</string>
+
+    <string name="recursive_folder_delete_msg">Deleting the directory....</string>
+
+    <string name="dnld_failed_msg">Network connection broken!\n\n 1. Please check your network connection and then press \'Retry\' to clear the cache and try again.\n\n 2. If the problem persists, then only please send us the bug-report and we\'ll look into it.</string>
+	<string name="sd_card_full_msg">Not enough space in SD-Card!\n\n 1. Please press \'OK\' to clear the cache and retry.\n\n 2. If this doesn\'t work then, please press \'Cancel\', goto sdcard and manually create space for ComicReader.</string>
+
+	<string name="my_comic_restore_confirmation">Are you sure you want to restore \'My Comics\' list?</string>
+	<string name="my_comic_restore_abort">Restoration of \'My Comics\' list aborted</string>
+
+	<string name="bg_cache_progress_msg">ComicReader: Syncing comics</string>
+
+	<string name="help_title">Welcome to ComicReader!</string>
+	<string name="help_msg">If you are facing any issues, look at out FAQs at: http://applications4android.blogspot.in/2012/02/version-2020-faqs.html\n\nFor info on how to use this app, refer to the \'Help\' page in Menu.\n\nCheck \'About Page\' in Menu to know what\'s new in this version.</string>
+	<string name="faq_url">http://applications4android.blogspot.in/2012/02/version-2020-faqs.html</string>
+
+	<string name="comic_bound_fetch_msg">Fetching the comic bound....</string>
+
+</resources>

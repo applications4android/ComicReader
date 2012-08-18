@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+    <string-array name="sync_type">
+        <item>Backwards from latest</item>
+        <item>Forward from previous session</item>
+        <item>Both</item>
+    </string-array>
+
+    <string-array name="sync_type_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="freq">
+        <item>1   (every 24 hrs)</item>
+        <item>2   (every 12 hrs)</item>
+        <item>3   (every 8 hrs)</item>
+        <item>4   (every 6 hrs)</item>
+        <item>6   (every 4 hrs)</item>
+        <item>8   (every 3 hrs)</item>
+        <item>12  (every 2 hrs)</item>
+        <item>24  (every hour!)</item>
+        <item>48  (every 30 mins!!)</item>
+        <item>96  (every 15 mins!!!)</item>
+    </string-array>
+
+    <string-array name="freq_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>12</item>
+        <item>24</item>
+        <item>48</item>
+        <item>96</item>
+    </string-array>
+
+    <string-array name="start_time">
+        <item>0  (12 am)</item>
+        <item>1  ( 1 am)</item>
+        <item>2  ( 2 am)</item>
+        <item>3  ( 3 am)</item>
+        <item>4  ( 4 am)</item>
+        <item>5  ( 5 am)</item>
+        <item>6  ( 6 am)</item>
+        <item>7  ( 7 am)</item>
+        <item>8  ( 8 am)</item>
+        <item>9  ( 9 am)</item>
+        <item>10 (10 am)</item>
+        <item>11 (11 am)</item>
+        <item>12 (12 pm)</item>
+        <item>13 ( 1 pm)</item>
+        <item>14 ( 2 pm)</item>
+        <item>15 ( 3 pm)</item>
+        <item>16 ( 4 pm)</item>
+        <item>17 ( 5 pm)</item>
+        <item>18 ( 6 pm)</item>
+        <item>19 ( 7 pm)</item>
+        <item>20 ( 8 pm)</item>
+        <item>21 ( 9 pm)</item>
+        <item>22 (10 pm)</item>
+        <item>23 (11 pm)</item>
+    </string-array>
+
+    <string-array name="start_time_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+
+    <string-array name="num_cache">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="num_cache_values">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="select_sort_order">
+        <item>Alphabetical</item>
+        <item>Ignore Articles</item>
+        <item>Editorial at Last</item>
+        <item>New on Top</item>
+        <item>Selected on Top</item>
+    </string-array>
+
+    <string-array name="select_sort_order_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="my_sort_order">
+        <item>Alphabetical</item>
+        <item>Ignore Articles</item>
+        <item>Editorial at Last</item>
+    </string-array>
+
+    <string-array name="my_sort_order_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+</resources>

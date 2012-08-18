@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:orientation="horizontal"
+	android:paddingRight="10dp" 
+	android:paddingLeft="10dp" 
+	android:paddingTop="1dp" 
+	android:paddingBottom="1dp" 
+	>
+   	<TextView
+		android:id="@+id/comic_settings_item_name"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:textSize="16sp"
+		android:typeface="serif"
+		android:textStyle="bold"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:lines="3"
+		android:textColor="#ffffff" />
+	<CheckBox
+		android:id="@+id/comic_settings_item"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_marginRight="10dp" />
+   	<Button 
+		android:id="@+id/comic_settings_item_preview"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/preview_back" />
+</LinearLayout>

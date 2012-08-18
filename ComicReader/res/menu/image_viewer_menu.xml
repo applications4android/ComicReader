@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    	android:id="@+id/comic_first"
+    	android:title="First" />
+    <item
+    	android:id="@+id/comic_rand"
+    	android:title="Random" />
+	<item
+		android:id="@+id/comic_latest"
+		android:title="Latest" />
+	<item
+		android:id="@+id/comic_select"
+		android:title="Select Strip" />
+    <item
+    	android:id="@+id/comic_save"
+    	android:title="Save Strip" />
+	<item
+	    android:id="@+id/comic_clear_cache"
+	    android:title="Clear Cache" />
+</menu>

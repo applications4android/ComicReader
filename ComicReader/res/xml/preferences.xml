@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference
+		android:key="backgroundCacheEnabledPref"
+        android:title="Enable Caching"
+        android:summary="Enable caching in background for offline access"
+        android:defaultValue="true" />
+    <ListPreference
+		android:title="Cache Frequency"
+		android:summary="Number of times to sync in a day"
+		android:dependency="backgroundCacheEnabledPref"
+		android:key="backgroundCacheFreqPref"
+		android:defaultValue="4"
+		android:entries="@array/freq"
+		android:entryValues="@array/freq_values" />
+    <ListPreference
+		android:title="Cache Start Time"
+		android:summary="When does the first sync happen in a day (default is 6am)"
+		android:dependency="backgroundCacheEnabledPref"
+		android:key="backgroundCacheStartTimePref"
+		android:defaultValue="6"
+		android:entries="@array/start_time"
+		android:entryValues="@array/start_time_values" />
+	<CheckBoxPreference
+		android:key="mobileDataCacheEnabledPref"
+		android:title="Mobile network"
+		android:summary="Use mobile network for caching (if Wifi not available)"
+		android:defaultValue="false"
+		android:dependency="backgroundCacheEnabledPref" />
+	<ListPreference
+		android:key="numStripsCachePref"
+		android:title="Cache size"
+		android:summary="Number of strips to cache per comic"
+		android:defaultValue="3"
+		android:entries="@array/num_cache"
+		android:entryValues="@array/num_cache_values"
+		android:dependency="backgroundCacheEnabledPref" />
+	<ListPreference
+		android:key="syncTypePref"
+		android:title="Sync Type"
+		android:summary="Order of syncing the strips"
+		android:defaultValue="1"
+		android:entries="@array/sync_type"
+		android:entryValues="@array/sync_type_values"
+		android:dependency="backgroundCacheEnabledPref" />
+	<ListPreference
+		android:title="Sort (My Comics)"
+		android:summary="Sort Order in My Comics Page"
+		android:key="mySortPref"
+		android:defaultValue="1"
+		android:entries="@array/my_sort_order"
+		android:entryValues="@array/my_sort_order_values" />
+	<ListPreference
+		android:title="Sort (All Comics)"
+		android:summary="Sort Order in Select Comics Page"
+		android:key="selectSortPref"
+		android:defaultValue="1"
+		android:entries="@array/select_sort_order"
+		android:entryValues="@array/select_sort_order_values" />
+</PreferenceScreen>

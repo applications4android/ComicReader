@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.blogspot.applications4android.comicreader"
+      android:versionCode="23"
+      android:versionName="2.0.42" >
+    <uses-sdk android:minSdkVersion="7" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".ActivityComicReader" android:label="@string/app_name" android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActivityComicSelector" android:label="@string/select_comics_label" android:configChanges="orientation" />
+        <activity android:name=".ActivitySettingsPage" android:label="@string/settings_label" android:configChanges="orientation" />
+        <activity android:name=".ComicStripViewer" android:configChanges="orientation" />
+        <activity android:name=".ActivitySaveStrip" android:configChanges="orientation" />
+        <activity android:name=".ActivityPageViewer" android:configChanges="orientation" />
+
+        <receiver android:name=".BackgroundCacheReciever" />
+        <receiver android:name=".SyncNowReciever" />
+        <receiver android:name=".BackgroundCacheBootReciever">
+	        <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".BackgroundCacheIntentService" />
+    </application>
+
+</manifest>

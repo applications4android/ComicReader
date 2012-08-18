@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/select"
+        android:title="Select Comics" />
+    <item
+        android:id="@+id/settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/backup_favs"
+        android:title="Backup my list" />
+    <item
+        android:id="@+id/restore_favs"
+        android:title="Restore my list" />
+    <item
+        android:id="@+id/sync_now"
+        android:title="Sync now" />
+    <item
+        android:id="@+id/clear_all_cache"
+        android:title="Clear All Cache" />
+    <item
+        android:id="@+id/last_synced_time"
+        android:title="Last Synced" />
+	<item
+		android:id="@+id/share"
+		android:title="Share App" />
+	<item
+		android:id="@+id/disclaimer"
+		android:title="Disclaimer" />
+	<item
+		android:id="@+id/about"
+		android:title="About" />
+	<item
+		android:id="@+id/help"
+		android:title="Help" />
+</menu>
