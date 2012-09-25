@@ -41,7 +41,7 @@ public class Blondie extends DailyComic {
 
 	@Override
 	public String getUrlFromTime(Calendar cal) {
-		return String.format("http://www.blondie.com/strip.php?comic=%4d-%d-%d",
+		return String.format("http://www.blondie.com/strip.php?comic=%d-%d-%d",
 							cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
 	}
 
@@ -57,7 +57,7 @@ public class Blondie extends DailyComic {
 		int year = Integer.parseInt(time[0]);
 		int month = Integer.parseInt(time[1]);
 		int day = Integer.parseInt(time[2]);
-		String surl = String.format("http://content.comicskingdom.net/Blondie/Blondie.%4d%02d%02d.gif",year,month,day);
+		String surl = String.format("http://www.blondie.com/dailies/%d/%d/%d.jpg",year,month,day);
 		strip.setTitle("Blondie: " + date);
 		strip.setText("-NA-");
 		return surl;
