@@ -2,11 +2,9 @@ package com.blogspot.applications4android.comicreader;
 
 import com.blogspot.applications4android.comicreader.R;
 import com.blogspot.applications4android.comicreader.core.AppInfo;
-import com.blogspot.applications4android.comicreader.core.IntentGen;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -141,15 +139,7 @@ public class ComicBoundUpdater extends AsyncTask<Void, Void, Void> {
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		});
-        alertbox.setPositiveButton("Send Report", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-            	Resources res = mMain.getResources();
-    	   		String[] email = new String[] { res.getString(R.string.dev_email) };
-    	   		String subj = res.getString(R.string.comic_bug_report_subj);
-            	mMain.startActivity(IntentGen.emailChooserIntent(email, subj, body, false, "Send Report..."));
-            }
-        });
-        alertbox.setNeutralButton("Retry", new DialogInterface.OnClickListener() {
+        alertbox.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO:
 				/*

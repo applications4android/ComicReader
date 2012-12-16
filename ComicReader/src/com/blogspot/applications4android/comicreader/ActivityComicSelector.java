@@ -238,11 +238,15 @@ public class ActivityComicSelector extends ComicActivity {
 	   		dac.execute(false);
 	   		return true;
 	   	case R.id.comic_request:
-	   		String msg = res.getString(R.string.comic_request_msg);
-	   		String[] email = new String[] { res.getString(R.string.dev_email) };
-	   		String subj = res.getString(R.string.comic_request_subj);
-	   		Intent i = IntentGen.emailChooserIntent(email, subj, msg, false, "Send request...");
-	   		ActivityComicSelector.this.startActivity(i);
+			AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+			alertbox.setTitle(getResources().getString(R.string.comic_request_subj));
+			alertbox.setMessage(res.getString(R.string.comic_request_msg));
+			alertbox.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+				}
+			});
+			alertbox.show();
 	   		return true;
 	   	default:
 	   		return super.onOptionsItemSelected(item);
