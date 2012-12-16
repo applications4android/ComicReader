@@ -3,9 +3,9 @@ Android application for reading comic strips over internet.
 
 ### Common git commands that you may find helpful:
 1. Cloning -- git clone git@github.com:applications4android/ComicReader
-2. Adding a new file -- git add <filename>
-3. Staging the changes -- git commit -m "<message>"
-4. Submitting the changes -- git push git@github.com:applications4android/ComicReader master
+2. Staging the changes -- git commit -a -m "<message>"
+3. Submitting the changes -- git push origin master
+4. Syncing your branch to TOT -- git pull origin master
 
 ### Folder organization:
 When you clone the repo you will see a folder named 'ComicReader' created.
