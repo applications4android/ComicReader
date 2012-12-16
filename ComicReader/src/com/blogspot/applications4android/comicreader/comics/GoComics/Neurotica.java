@@ -3,8 +3,8 @@ package com.blogspot.applications4android.comicreader.comics.GoComics;
 import java.util.Calendar;
 import com.blogspot.applications4android.comicreader.comictypes.DailyGoComicsCom;
 
-public class NEUROTICA extends DailyGoComicsCom {
-	public NEUROTICA() {
+public class Neurotica extends DailyGoComicsCom {
+	public Neurotica() {
 		super();
 		mComicName = "neurotica";
 		mFirstCal = Calendar.getInstance();
