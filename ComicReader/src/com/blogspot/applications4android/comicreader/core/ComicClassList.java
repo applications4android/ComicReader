@@ -489,6 +489,7 @@ public class ComicClassList {
 				setSelected(s, true);
 			}
 		}
+		numClasses = mClasses.length;
 		for(int i=0;i<numClasses;++i) {
 			if(!mClasses[i].mSel) {
 				continue;
