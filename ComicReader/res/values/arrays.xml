@@ -157,12 +157,14 @@
         <item>Alphabetical</item>
         <item>Ignore Articles</item>
         <item>Editorial at Last</item>
+        <item>Most Unread Strips</item>
     </string-array>
 
     <string-array name="my_sort_order_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>6</item>
     </string-array>
 
 </resources>

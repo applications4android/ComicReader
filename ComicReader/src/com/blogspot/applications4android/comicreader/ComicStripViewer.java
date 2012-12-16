@@ -281,6 +281,7 @@ public class ComicStripViewer extends ComicActivity {
 		mPzv.setPanXY(0, 0);
 		hideResetButton();
 		mPzv.invalidate();
+		s.setAsRead(true);
 	}
 
     /**

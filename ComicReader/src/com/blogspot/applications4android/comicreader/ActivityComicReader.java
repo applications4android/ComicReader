@@ -6,6 +6,7 @@ import java.util.Calendar;
 import com.blogspot.applications4android.comicreader.core.Cache;
 import com.blogspot.applications4android.comicreader.core.Comic;
 import com.blogspot.applications4android.comicreader.core.ComicActivity;
+import com.blogspot.applications4android.comicreader.core.ComicClass;
 import com.blogspot.applications4android.comicreader.core.ComicClassList;
 import com.blogspot.applications4android.comicreader.core.FileUtils;
 import com.blogspot.applications4android.comicreader.core.IntentGen;
@@ -151,11 +152,15 @@ public class ActivityComicReader extends ComicActivity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			try {
-				String txt = mList.getComicClassFromIndex(mComicItems[position]).mName;
+				ComicClass cls = mList.getComicClassFromIndex(mComicItems[position]);
+				String txt = cls.mName;
+				if(cls.mUnread > 0) {
+					txt += " (" + cls.mUnread + ")";
+				}
 				holder.latest.setText(txt);
-				holder.latest.setTag(txt);
-				holder.favorite.setTag(txt);
-				holder.previous.setTag(txt);
+				holder.latest.setTag(cls.mName);
+				holder.favorite.setTag(cls.mName);
+				holder.previous.setTag(cls.mName);
 			}
 			catch(ComicNotFoundException e) { // This should never occur!
 				e.printStackTrace();

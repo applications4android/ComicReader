@@ -14,6 +14,8 @@ public class ComicClass {
 	public boolean mNew;
 	/** comic is selected or not */
 	public boolean mSel;
+	/** num unread strips */
+	public int mUnread;
 
 	/**
 	 * Constructor
@@ -24,5 +26,6 @@ public class ComicClass {
 		mPref = null;
 		mNew = false;
 		mSel = false;
+		mUnread = 0;
 	}
 }

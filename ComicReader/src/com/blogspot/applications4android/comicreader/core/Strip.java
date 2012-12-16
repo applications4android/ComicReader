@@ -186,7 +186,7 @@ public final class Strip {
 	 */
 	public String getImage(ComicParser p) throws ClientProtocolException, URISyntaxException, IOException, ComicSDCardFull {
 		downloadImage(p);
-		mRead = true;
+		setAsRead(true);
 		return mImgFile;
 	}
 

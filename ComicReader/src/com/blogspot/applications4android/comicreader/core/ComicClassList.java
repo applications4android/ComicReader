@@ -39,6 +39,8 @@ public class ComicClassList {
 	public static final int SORT_NEWEST_FIRST = 4;
 	/** sorting in selected first order */
 	public static final int SORT_SELECTED_FIRST = 5;
+	/** sorting in most unread strips order */
+	public static final int SORT_MOST_UNREAD_FIRST = 6;
 
 	/** for logging purposes only */
 	private static final String TAG = "ComicClassList";
@@ -141,6 +143,9 @@ public class ComicClassList {
 		case SORT_SELECTED_FIRST:
 			Arrays.sort(mClasses, new SelectedFirstComparator());
 			break;
+		case SORT_MOST_UNREAD_FIRST:
+			Arrays.sort(mClasses, new NumUnreadStripsComparator());
+			break;
 		default:
 			throw new ComicSortException("Bad sort-type passed! type="+type);
 		}
@@ -166,17 +171,12 @@ public class ComicClassList {
 	}
 
 	/**
-	 * Get the comic object from the index
-	 * @param idx comic index
-	 * @return comic object
+	 * Helper function to load the comic object
+	 * @param idx location where it is stored in ComicClassList
+	 * @return Comic Object
 	 * @throws ComicNotFoundException
 	 */
-	// TODO: add unit-tests
-	public Comic getComicFromIndex(int idx) throws ComicNotFoundException {
-		if((idx < 0) || (idx >= mClasses.length)) {
-			ComicNotFoundException cnf = new ComicNotFoundException("Bad Index passed for 'getComicFromIndex'! idx="+idx+"len="+mClasses.length);
-			throw cnf;
-		}
+	private Comic getComicObject(int idx) throws ComicNotFoundException {
 		try {
 			String fname = mPkg + "." + mClasses[idx].mClass;
 			Log.d(TAG, "Trying to load class="+fname);
@@ -190,6 +190,21 @@ public class ComicClassList {
 			ComicNotFoundException cnf = new ComicNotFoundException("Comic for idx="+idx+" could not be found!");
 			throw cnf;
 		}
+	}
+
+	/**
+	 * Get the comic object from the index
+	 * @param idx comic index
+	 * @return comic object
+	 * @throws ComicNotFoundException
+	 */
+	// TODO: add unit-tests
+	public Comic getComicFromIndex(int idx) throws ComicNotFoundException {
+		if((idx < 0) || (idx >= mClasses.length)) {
+			ComicNotFoundException cnf = new ComicNotFoundException("Bad Index passed for 'getComicFromIndex'! idx="+idx+"len="+mClasses.length);
+			throw cnf;
+		}
+		return getComicObject(idx);
 	}
 
 	/**
@@ -474,6 +489,13 @@ public class ComicClassList {
 				setSelected(s, true);
 			}
 		}
+		for(int i=0;i<numClasses;++i) {
+			if(!mClasses[i].mSel) {
+				continue;
+			}
+			Comic com = getComicObject(i);
+			mClasses[i].mUnread = com.readOnlyUnread();
+		}
 	}
 
 	/**
@@ -502,6 +524,22 @@ public class ComicClassList {
 			String sa = a.mName;
 			String sb = b.mName;
 			return sa.compareTo(sb);
+		}
+	}
+
+	/** For sorting classes based on number of unread strips */
+	private class NumUnreadStripsComparator implements Comparator<ComicClass> {
+		@Override
+		public int compare(ComicClass a, ComicClass b) {
+			if(a.mUnread == b.mUnread) {
+				String sa = a.mName;
+				String sb = b.mName;
+				return sa.compareTo(sb);
+			}
+			if(a.mUnread > b.mUnread) {
+				return -1;
+			}
+			return 1;
 		}
 	}
 

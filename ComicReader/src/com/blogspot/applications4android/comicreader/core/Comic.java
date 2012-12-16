@@ -174,6 +174,25 @@ public abstract class Comic extends ComicParser {
 	}
 
 	/**
+	 * Reads unread strips count for the current comic
+	 * @return unread strips count
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws JSONException
+	 */
+	public int readOnlyUnread() throws FileNotFoundException, IOException, JSONException {
+		File json = _getJsonFile();
+		if(!json.exists()) {
+			return 0;
+		}
+		JSONObject root = JsonUtils.jsonRoot(new FileInputStream(json));
+		if(root.has("mUnread")) {
+			return root.getInt("mUnread");
+		}
+		return 0;
+	}
+
+	/**
 	 * Helper function to read the properties of this comic from its json file
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -211,7 +230,7 @@ public abstract class Comic extends ComicParser {
 				}
 			}
 		}
-		Log.d(TAG, "Successfully read comic properties...");
+		Log.d(TAG, "Successfully read comic properties ...");
 	}
 
 	/**
@@ -269,6 +288,15 @@ public abstract class Comic extends ComicParser {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
 		{
+			int unread = 0;
+			Iterator<Entry<String, Strip>> itr1 = mStrips.entrySet().iterator();
+			while(itr1.hasNext()) {
+				Map.Entry<String, Strip> e = itr1.next();
+				if(!e.getValue().isRead()) {
+					unread++;
+				}
+			}
+			sb.append("\"mUnread\":" + unread + ",\n");
 			if(mLatestUid != null) {
 				sb.append("\"mLatestUid\":\"" + mLatestUid + "\",\n");
 			}
