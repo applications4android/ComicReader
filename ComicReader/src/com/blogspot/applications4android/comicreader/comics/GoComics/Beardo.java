@@ -1,4 +1,3 @@
-   
 package com.blogspot.applications4android.comicreader.comics.GoComics;
 
 import java.util.Calendar;
@@ -9,6 +8,6 @@ public class Beardo extends DailyGoComicsCom {
 		super();
 		mComicName = "beardo";
 		mFirstCal = Calendar.getInstance();
-		mFirstCal.set(2009, 11, 1);
+		mFirstCal.set(2011, 4, 30);
 	}
 }

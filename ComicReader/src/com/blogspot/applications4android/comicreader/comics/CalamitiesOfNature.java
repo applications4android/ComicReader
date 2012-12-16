@@ -12,7 +12,7 @@ public class CalamitiesOfNature extends IndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://calamitiesofnature.com/";
+		return "http://calamitiesofnature.com/archive";
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class CalamitiesOfNature extends IndexedComic {
 		String str;
 		String final_str = null;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("alt=\"Comic Latest Page\"");
+			int index1 = str.indexOf("archive.gif");
 			if (index1 != -1) {
 				final_str = str;
 			}
@@ -35,8 +35,8 @@ public class CalamitiesOfNature extends IndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll(".*IMG SRC=\"archive/","");
-		final_str = final_str.replaceAll(".jpg\".*","");
+		final_str = final_str.replaceFirst(".*?href=\"http://www.calamitiesofnature.com/archive/\\?c=","");
+		final_str = final_str.replaceAll("\".*","");
 	   	int finalid = Integer.parseInt(final_str);
 	   	return finalid;
 	}

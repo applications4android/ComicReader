@@ -1,11 +1,10 @@
-   
 package com.blogspot.applications4android.comicreader.comics.GoComics;
 
 import java.util.Calendar;
 import com.blogspot.applications4android.comicreader.comictypes.DailyGoComicsCom;
 
-public class Toby extends DailyGoComicsCom {
-	public Toby() {
+public class TOBY extends DailyGoComicsCom {
+	public TOBY() {
 		super();
 		mComicName = "toby";
 		mFirstCal = Calendar.getInstance();

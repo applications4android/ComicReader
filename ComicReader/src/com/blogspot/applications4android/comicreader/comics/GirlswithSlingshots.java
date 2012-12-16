@@ -63,7 +63,7 @@ public class GirlswithSlingshots extends YearlyArchivedComic {
 		String final_title = null;
 		String final_text = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("src=\"http://www.girls");
+			int index1 = str.indexOf("girlswithslingshots.com/comics/");
 			if (index1 != -1) {
 				final_str = str;
 				final_title = str;

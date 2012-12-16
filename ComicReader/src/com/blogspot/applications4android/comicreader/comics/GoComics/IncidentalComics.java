@@ -1,4 +1,3 @@
-   
 package com.blogspot.applications4android.comicreader.comics.GoComics;
 
 import java.util.Calendar;

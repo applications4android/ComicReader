@@ -2,14 +2,11 @@ package com.blogspot.applications4android.comicreader.comics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.zip.GZIPInputStream;
 
 import org.apache.http.client.ClientProtocolException;
-
 
 import com.blogspot.applications4android.comicreader.comictypes.ArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Bound;
@@ -59,10 +56,11 @@ public class BugComic extends ArchivedComic {
 	protected void fetchAllComicUrls() {
 		if(mComicUrls == null) {
 			try {
-				GZIPInputStream gzis = new GZIPInputStream(Downloader.openConnectionStream(new URI(getArchiveUrl())));
-				BufferedReader reader = new BufferedReader(new InputStreamReader(gzis, "UTF-8"));
+//				GZIPInputStream gzis = new GZIPInputStream(Downloader.openConnectionStream(new URI(getArchiveUrl())));
+//				BufferedReader reader = new BufferedReader(new InputStreamReader(gzis, "UTF-8"));
+				BufferedReader reader = Downloader.openConnection(new URI(getArchiveUrl()));
 				mComicUrls = getAllComicUrls(reader);
-				gzis.close();
+				reader.close();
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -97,8 +95,9 @@ public class BugComic extends ArchivedComic {
 		if(!htmlNeeded()) {
 			return parse(url, null, strip);
 		}
-		GZIPInputStream gzis = new GZIPInputStream(Downloader.openConnectionStream(new URI(url)));
-		BufferedReader br = new BufferedReader(new InputStreamReader(gzis, "UTF-8"));
+//		GZIPInputStream gzis = new GZIPInputStream(Downloader.openConnectionStream(new URI(url)));
+//		BufferedReader br = new BufferedReader(new InputStreamReader(gzis, "UTF-8"));
+		BufferedReader br = Downloader.openConnection(new URI(url));
 		try {
 			String surl = parse(url, br, strip);
 			br.close();

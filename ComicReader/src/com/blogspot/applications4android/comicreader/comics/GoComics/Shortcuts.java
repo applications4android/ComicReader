@@ -1,4 +1,3 @@
-   
 package com.blogspot.applications4android.comicreader.comics.GoComics;
 
 import java.util.Calendar;
@@ -9,6 +8,6 @@ public class Shortcuts extends DailyGoComicsCom {
 		super();
 		mComicName = "shortcuts";
 		mFirstCal = Calendar.getInstance();
-		mFirstCal.set(2011, 5, 5);
+		mFirstCal.set(1999, 7, 30);
 	}
 }

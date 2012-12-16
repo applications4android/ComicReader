@@ -35,9 +35,8 @@ public class DarkLegacy extends IndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll("var iLatestComic = ","");
-		final_str = final_str.replaceAll(";","");
-		final_str = final_str.replaceAll(" ","");
+		final_str = final_str.replaceAll("var iLatestComic=","");
+		final_str = final_str.replaceAll(";.*","");
 		return Integer.parseInt(final_str);
    	}
 

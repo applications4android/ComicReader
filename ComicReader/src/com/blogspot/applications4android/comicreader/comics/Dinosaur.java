@@ -47,7 +47,7 @@ public class Dinosaur extends IndexedComic {
 
 	@Override
 	protected int getIdFromStripUrl(String url) {
-		return Integer.parseInt(url.replaceAll("http.*comic=", ""));
+		return Integer.parseInt(url.replaceAll(".*comic=", ""));
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class Dinosaur extends IndexedComic {
 		String final_date = null;	
 		String final_itext = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("class=\"comic\"");
+			int index1 = str.indexOf("class=\"comic");
 			if (index1 != -1) {
 				final_str = str;
 				final_itext = str;
