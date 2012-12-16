@@ -44,13 +44,6 @@ public class Misfile extends DailyComic {
 		strip.setTitle("Misfile: " + date); 
 		strip.setText("-NA-");
 		return final_str;
-		/*
-		String index = url.replaceAll(".*page=", "");
-		String url_str = "http://www.misfile.com/overlay.php?pageCalled="+index;
-		strip.setTitle("Misfile: " + index);
-		strip.setText("-NA-");
-		return url_str;
-		*/
 	}
 
 	@Override
@@ -73,7 +66,7 @@ public class Misfile extends DailyComic {
 		String[] elements = date.split("-");
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(elements[0]));
-		cal.set(Calendar.MONTH, Integer.parseInt(elements[1]));
+		cal.set(Calendar.MONTH, Integer.parseInt(elements[1])-1);
 		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(elements[2]));
 		return cal;
 	}
@@ -82,7 +75,7 @@ public class Misfile extends DailyComic {
 	public String getUrlFromTime(Calendar cal) {
 		return String.format("http://www.misfile.com/?date=%04d-%02d-%02d",
 							cal.get(Calendar.YEAR),
-							cal.get(Calendar.MONTH),
+							cal.get(Calendar.MONTH)+1,
 							cal.get(Calendar.DAY_OF_MONTH));
 	}
 }
