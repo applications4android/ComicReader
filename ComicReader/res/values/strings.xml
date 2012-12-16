@@ -57,6 +57,12 @@
 	<string name="help_msg">If you are facing any issues, look at out FAQs at: http://applications4android.blogspot.in/2012/02/version-2020-faqs.html\n\nFor info on how to use this app, refer to the \'Help\' page in Menu.\n\nCheck \'About Page\' in Menu to know what\'s new in this version.</string>
 	<string name="faq_url">http://applications4android.blogspot.in/2012/02/version-2020-faqs.html</string>
 
+	<string name="last_update_title">ComicReader needs volunteer programmers!</string>
+	<string name="last_update_volunteer_subj">I would love to help ComicReader!</string>
+	<string name="last_update_volunteer_body">I am a programmer and I would love to contribute to the ComicReader code-base to keep it alive! Please send me the details to ramp-up on the topic.</string>
+	<string name="last_update_msg">ComicReader has come a long way with your continued support. But unfortunately, we are not having enough time to support all your requests and keep ComicReader running! Thus we have the source-code for this app opensourced on github at https://github.com/applications4android/ComicReader! So, we are requesting all programmers out there to contribute to the codebase and help us keep ComicReader alive!</string>
+	<string name="github_link">https://github.com/applications4android/ComicReader</string>
+
 	<string name="comic_bound_fetch_msg">Fetching the comic bound....</string>
 
 </resources>

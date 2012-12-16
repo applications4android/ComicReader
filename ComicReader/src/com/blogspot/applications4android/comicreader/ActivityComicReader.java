@@ -50,8 +50,10 @@ public class ActivityComicReader extends ComicActivity {
 	private static final String ITEM_POSITION_PREF = "myComicsListViewPosPref";
 	/** pref-key for welcome message */
 	private static final String WELCOME_KEY = "welcomeMsg_1";
-	/** perf-key for first run */
+	/** pref-key for first run */
 	private static final String FIRST_RUN = "firstRun_1";
+	/** pref-key for last update! */
+	private static final String LAST_UPDATE_NOTICE = "lastUpdateNotice";
 
 	/** list of comics */
 	protected static int[] mComicItems;
@@ -362,6 +364,7 @@ public class ActivityComicReader extends ComicActivity {
 	 */
 	protected void initListView() {
 		_showWelcomeMessage();
+		_lastUpdateNotice();
 		if((mComicItems == null) || (mComicItems.length == 0)) {
 			setContentView(R.layout.comic_reader_empty_list);
 			return;
@@ -399,6 +402,49 @@ public class ActivityComicReader extends ComicActivity {
 		SharedPreferences.Editor e = sp.edit();
 		e.putBoolean(FIRST_RUN, false);
 		e.commit();
+	}
+
+	/**
+	 * Showing that we are not going to support this app for long! Need all your help in keeping ComicReader alive!
+	 */
+	private void _lastUpdateNotice() {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		final SharedPreferences.Editor e = sp.edit();
+		ActivitySettingsPage.launchRepeatedCaching(this, true);
+		if(!sp.getBoolean(LAST_UPDATE_NOTICE, true)) {
+			return;
+		}
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+		alertbox.setTitle(getResources().getString(R.string.last_update_title));
+		alertbox.setMessage(getResources().getString(R.string.last_update_msg));
+		alertbox.setPositiveButton("I'm ready to help!", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				e.putBoolean(LAST_UPDATE_NOTICE, false);
+	           	e.commit();
+            	Resources res = ActivityComicReader.this.getResources();
+    	   		String[] email = new String[] { res.getString(R.string.dev_email) };
+    	   		String subj = res.getString(R.string.last_update_volunteer_subj);
+    	   		String body = res.getString(R.string.last_update_volunteer_body);
+    	   		ActivityComicReader.this.startActivity(IntentGen.emailChooserIntent(email, subj, body, false, "Send Report..."));
+			}
+		});
+		alertbox.setNeutralButton("Go to github", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				e.putBoolean(LAST_UPDATE_NOTICE, false);
+	           	e.commit();
+				String url = ActivityComicReader.this.getString(R.string.github_link);
+				ActivityComicReader.this.startActivity(IntentGen.linkViewIntent(url));
+			}
+		});
+		alertbox.setNegativeButton("Not interested", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface arg0, int arg1) {
+				e.putBoolean(LAST_UPDATE_NOTICE, false);
+	           	e.commit();
+	        }
+	    });
+		alertbox.show();
 	}
 
 	/**
