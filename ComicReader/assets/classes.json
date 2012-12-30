@@ -22,6 +22,7 @@
     {"class":"Dinosaur", "name":"Dinosaur", "pref":"dinosaurPref"},
     {"class":"DogHouseDiaries", "name":"Doghouse Diaries", "pref":"doghousediariesPref"}, 
     {"class":"DumbingofAge", "name":"Dumbing of Age", "pref":"dumbingofagePref"},
+    {"class":"EdmundFinney", "name":"Edmund Finney's Quest to Find the Meaning of Life", "pref":"edmundfinneyPref"},
     {"class":"FeyWinds", "name":"Fey Winds", "pref":"feywindsPref"},
     {"class":"FreeFall", "name":"Free Fall", "pref":"freefallPref"},
     {"class":"GeekAndPoke", "name":"Geek And Poke", "pref":"geeknpokePref"},
