@@ -36,8 +36,6 @@ public class ElGoonishShive extends YearlyArchivedComic {
 		
 		Pattern imgPattern = Pattern.compile("comics/.*(jpg|png|gif)");
 		
-		Log.d("elgoonishshive","parsing url: "+url);
-		
 		while((line != null)) {
 			
 			Matcher urlMatcher = imgPattern.matcher(line);
@@ -49,7 +47,6 @@ public class ElGoonishShive extends YearlyArchivedComic {
 			if(line.matches(".*<title>.*")) {
 				title = line.replaceAll(".*<title>", "");
 				title = title.replaceAll("</title>", "");
-				Log.d("elgoonishshive", "found strip title: "+title);
 			}
 			
 			line = reader.readLine();
@@ -65,8 +62,6 @@ public class ElGoonishShive extends YearlyArchivedComic {
 	protected ArrayList<String> getAllComicUrls(BufferedReader reader, int year)
 			throws IOException {
 		
-		Log.d("elgoonishshive","getting comic urls for year "+year);
-		
 		ArrayList<String> urls = new ArrayList<String>();
 		Pattern comicUrlPattern = Pattern.compile("date=..........");
 		
@@ -78,7 +73,6 @@ public class ElGoonishShive extends YearlyArchivedComic {
 				
 				while(urlMatcher.find()) {
 					urls.add("http://www.egscomics.com/index.php?"+urlMatcher.group());
-					Log.d("elgoonishshive","found comic url: "+urlMatcher.group());
 				}
 			}
 		}
@@ -89,7 +83,7 @@ public class ElGoonishShive extends YearlyArchivedComic {
 
 	@Override
 	protected int getFirstYear() {
-		return 2003;
+		return 2002;
 	}
 
 	@Override
