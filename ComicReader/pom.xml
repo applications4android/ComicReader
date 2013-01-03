@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.blogspot.applications4android</groupId>
+		<artifactId>ComicReaderParent</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>ComicReader</artifactId>
+	<packaging>apk</packaging>
+	<name>${project.artifactId}</name>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<defaultGoal>package android:deploy android:run</defaultGoal>
+		<finalName>${project.artifactId}</finalName>
+		<sourceDirectory>${project.basedir}/src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
