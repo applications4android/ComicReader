@@ -14,6 +14,12 @@ Given below is the organization of this folder:
 1. ComicReader        --- Main source folder which contains the project-specific files
 2. ComicReaderTest    --- Android JUnit test-cases for this project
 
+### Build
+1. Traditional Eclipse Way:
+ You can just open the ComicReader project in Eclipse IDE and build as usual.
+2. Maven support:
+ From the top folder, you can just run 'mvn' (thanks to moparisthebest).
+
 ### Project namespace:
 com.blogspot.applications4android.comicreader
 
