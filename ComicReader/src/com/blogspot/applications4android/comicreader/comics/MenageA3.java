@@ -117,17 +117,6 @@ public class MenageA3 extends ArchivedComic {
 		return vol_urls;
 	}
 
-	private int countOccurrences(String str, String pattern) {
-
-		Pattern p = Pattern.compile(pattern);
-		Matcher m = p.matcher(str);
-		int count = 0;
-		while (m.find()) {
-			count += 1;
-		}
-		return count;
-	}
-
 	@Override
 	protected String getLatestStripUrl() {
 		fetchAllComicUrls();

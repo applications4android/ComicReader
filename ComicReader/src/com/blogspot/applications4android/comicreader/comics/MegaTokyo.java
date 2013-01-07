@@ -63,7 +63,6 @@ public class MegaTokyo extends IndexedComic {
     	String str;
 		String final_str = null;
 		String final_title = null;
-		String final_title1 = null;
 		String final_itext = null;
 		while ((str = reader.readLine()) != null) {
 			int index1 = str.indexOf("<img align=\"middle\" src=\"strips/");
