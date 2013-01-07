@@ -30,10 +30,10 @@ public class MenageA3 extends ArchivedComic {
 		while ((str = reader.readLine()) != null) {
 			i = str.indexOf(search);
 			if (i != -1) {
+				//remove the html surrounding the URL
 				if (!str.contains("ARCHIVE")) {
 					str_temp = str;
 					str_temp = str_temp.replaceAll(".*?href=\"", "");
-					;
 					str_temp = str_temp.replaceAll("\".*$", "");
 					m_com.add(str_temp);
 				}
@@ -51,7 +51,6 @@ public class MenageA3 extends ArchivedComic {
 				ArrayList<String> all_vols = new ArrayList<String>();
 				// Archive has volumes that update no according to calendar
 				// So find number of archives first.
-
 				ArrayList<String> vol_urls = getNumOfVols();
 
 				for (String currentVol : vol_urls) {
@@ -77,10 +76,13 @@ public class MenageA3 extends ArchivedComic {
 		mBound = new Bound(0, (long) (mComicUrls.length - 1));
 	}
 
-	private ArrayList<String> getNumOfVols() {
+	//Finds the urls for volumes. This number can be updated.
+	private ArrayList<String> getVolURL() {
 		String str;
 		String search = "http://www.menagea3.net/archive/volume";
 		String mArchiveStr = "http://www.ma3comic.com/archive";
+		//We use an arraylist because the website does not do a great job on its design.
+		//They have duplicate urls and I use contains to check that there are no duplicates
 		ArrayList<String> vol_urls = new ArrayList<String>();
 		Pattern p = Pattern.compile(search + "\\d");
 
@@ -96,6 +98,7 @@ public class MenageA3 extends ArchivedComic {
 			while ((str = reader.readLine()) != null) {
 				i = str.indexOf(search);
 				if (i != -1) {
+					//Find the patter of the volume and add to the Arraylist
 					Matcher m = p.matcher(str);
 					while (m.find()) {
 						if (!vol_urls.contains(m.group())) {
@@ -153,7 +156,7 @@ public class MenageA3 extends ArchivedComic {
 			if (index1 != -1) {
 				final_str = str;
 			}
-			// This gets the location of the title
+			// This gets the title of the commic
 			int index2 = str.indexOf("<title>M&eacute;nage");
 			if (index2 != -1) {
 				final_title = str;
