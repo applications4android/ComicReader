@@ -51,7 +51,7 @@ public class MenageA3 extends ArchivedComic {
 				ArrayList<String> all_vols = new ArrayList<String>();
 				// Archive has volumes that update no according to calendar
 				// So find number of archives first.
-				ArrayList<String> vol_urls = getNumOfVols();
+				ArrayList<String> vol_urls = getVolURL();
 
 				for (String currentVol : vol_urls) {
 					URI u = null;
