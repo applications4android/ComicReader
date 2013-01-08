@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
+
 	<CheckBoxPreference
 		android:key="backgroundCacheEnabledPref"
         android:title="Enable Caching"
@@ -44,6 +45,11 @@
 		android:entries="@array/sync_type"
 		android:entryValues="@array/sync_type_values"
 		android:dependency="backgroundCacheEnabledPref" />
+	<CheckBoxPreference
+		android:key="notificationPref"
+        android:title="Display Notifications"
+        android:summary="Display notifications to appear in the notification bar"
+        android:defaultValue="true" />
 	<ListPreference
 		android:title="Sort (My Comics)"
 		android:summary="Sort Order in My Comics Page"
