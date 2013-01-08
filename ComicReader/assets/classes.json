@@ -32,7 +32,7 @@
     {"class":"GuComics", "name":"Gu Comics", "pref":"gucomicsPref"},
     {"class":"GunnerkriggCourt", "name":"Gunnerkrigg Court", "pref":"gunnerkriggcourtPref"},
     {"class":"JoeAndMonkey", "name":"Joe And Monkey", "pref":"joeandmonkeyPref"},
-    {"class":"KevinAndKell", "name":"Kevin And Kell", "pref":"kevinandkellPref"},
+    {"class":"KevinAndKell", "name":"Kevin And Kell", "pref":"kevinandkellPref", "new":"1"},
     {"class":"LeastICouldDo", "name":"Least I Could Do", "pref":"leasticoulddoPref"},
     {"class":"LookingForGroup", "name":"Looking For Group", "pref":"lookingforgroupPref"},
     {"class":"MegaTokyo", "name":"MegaTokyo", "pref":"megatokyoPref", "new":"1"},
