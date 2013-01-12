@@ -36,6 +36,7 @@
     {"class":"LeastICouldDo", "name":"Least I Could Do", "pref":"leasticoulddoPref"},
     {"class":"LookingForGroup", "name":"Looking For Group", "pref":"lookingforgroupPref"},
     {"class":"MegaTokyo", "name":"MegaTokyo", "pref":"megatokyoPref", "new":"1"},
+    {"class":"Nedroid", "name":"Nedroid", "pref":"nedroidPref", "new":"1"},
     {"class":"MenageA3", "name":"Menage a 3", "pref":"menagea3Pref", "new":"1"},
     {"class":"Misfile", "name":"Misfile", "pref":"misfilePref"},
     {"class":"MotherGooseandGrimm", "name":"Mother Goose & Grimm", "pref":"mothergooseandgrimmPref"},
