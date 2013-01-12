@@ -39,6 +39,7 @@
     {"class":"MenageA3", "name":"Menage a 3", "pref":"menagea3Pref", "new":"1"},
     {"class":"Misfile", "name":"Misfile", "pref":"misfilePref"},
     {"class":"MotherGooseandGrimm", "name":"Mother Goose & Grimm", "pref":"mothergooseandgrimmPref"},
+    {"class":"Nedroid", "name":"Nedroid", "pref":"nedroidPref", "new":"1"},
     {"class":"OOTS", "name":"Order of the Stick", "pref":"ootsPref"},
     {"class":"PennyArcade", "name":"Penny Arcade", "pref":"pennyarcadePref"},
     {"class":"PhDComics", "name":"PhD Comics", "pref":"phdcomicsPref"},
