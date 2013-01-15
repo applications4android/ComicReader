@@ -12,12 +12,12 @@ public class GunnerkriggCourt extends IndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://www.gunnerkrigg.com/index2.php";
+		return "http://www.gunnerkrigg.com/";
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://www.gunnerkrigg.com/index2.php";
+		return "http://www.gunnerkrigg.com/";
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class GunnerkriggCourt extends IndexedComic {
 		String str;
 		String final_str = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("/comics");
+			int index1 = str.indexOf("/comics/");
 			if (index1 != -1) {
 				final_str = str;
 			}
@@ -47,7 +47,7 @@ public class GunnerkriggCourt extends IndexedComic {
 
 	@Override
 	protected int getIdFromStripUrl(String url) {
-		return Integer.parseInt(url.replaceAll("http.*ID=", ""));
+		return Integer.parseInt(url.replaceAll("http.*comicID=", ""));
 	}
 
 	@Override
@@ -60,20 +60,17 @@ public class GunnerkriggCourt extends IndexedComic {
 			throws IOException {
     	String str;
 		String final_str = null;
-		String final_title = null;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("/comics");
+			int index1 = str.indexOf("/comics/");
 			if (index1 != -1) {
 				final_str = str;
-				final_title = str;
+				break;
 			}
 		}
 		final_str = final_str.replaceAll(".*src=\"","");
 		final_str = final_str.replaceAll("\".*","");
-    	final_title = final_title.replaceAll(".*alt=\"","");
-    	final_title = final_title.replaceAll("\".*","");
-		strip.setTitle("Gunnerkrigg Court- "+final_title);
+    	strip.setTitle("Gunnerkrigg Court");
 		strip.setText("-NA-");
-		return final_str;
+		return "http://www.gunnerkrigg.com" + final_str;
 	}
 }
