@@ -58,6 +58,7 @@
     {"class":"TimeTrabble", "name":"Time Trabble", "pref":"timetrabblePref"},
     {"class":"Tundra", "name":"Tundra", "pref":"tundraPref"},
     {"class":"Userfriendly", "name":"Userfriendly", "pref":"userfriendlyPref"},
+    {"class":"Unshelved", "name":"Unshelved", "pref":"unshelvedPref", "new":"1"},
     {"class":"VGCats", "name":"VG Cats", "pref":"vgcatsPref"},
     {"class":"VirtualShackles", "name":"Virtual Shackles", "pref":"virtualshacklesPref"},
     {"class":"WapsiSquare", "name":"Wapsi Square", "pref":"wapsisquarePref"},
