@@ -47,6 +47,9 @@
     {"class":"SMBC", "name":"Saturday Morning Breakfast Cereal", "pref":"smbcPref"},
     {"class":"Sheldon", "name":"Sheldon", "pref":"sheldonPref"},
     {"class":"Sinfest", "name":"Sinfest", "pref":"sinfestPref"},
+    {"class":"SluggyFreelance", "name":"Sluggy Freelance", "pref":"sluggyfreelancePref", "new":"1"},
+
+
     {"class":"SomethingofthatIlk", "name":"Something Of That Ilk", "pref":"somethingofthatilkPref"},
     {"class":"SomethingPositive", "name":"Something Positive", "pref":"somethingpositivePref"},
     {"class":"SpikedMath", "name":"Spiked Math", "pref":"spikedmathPref"},
