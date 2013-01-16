@@ -14,7 +14,6 @@ import com.blogspot.applications4android.comicreader.core.Strip;
 public class Nedroid extends ArchivedComic {
 	private static final int mFirstYr = 2005;
 	private int mCurrYr;
-	private static final String mArchiveStr = "http://www.cad-comic.com/cad/archive/";
 
 	@Override
 	public String getComicWebPageUrl() {
