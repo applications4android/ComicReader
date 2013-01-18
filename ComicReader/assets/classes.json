@@ -27,6 +27,7 @@
     {"class":"FeyWinds", "name":"Fey Winds", "pref":"feywindsPref"},
     {"class":"FreeFall", "name":"Free Fall", "pref":"freefallPref"},
     {"class":"GeekAndPoke", "name":"Geek And Poke", "pref":"geeknpokePref"},
+    {"class":"GeneralProtectionFault", "name":"General protection fault", "pref":"gpfPref", "new":"1"},
     {"class":"GirlGenius", "name":"Girl Genius", "pref":"girlgeniusPref"},
     {"class":"GirlswithSlingshots", "name":"Girls with Slingshots", "pref":"girlswithslingshotsPref"},
     {"class":"GuComics", "name":"Gu Comics", "pref":"gucomicsPref"},
