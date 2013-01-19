@@ -49,6 +49,7 @@
     {"class":"Sheldon", "name":"Sheldon", "pref":"sheldonPref"},
     {"class":"Sinfest", "name":"Sinfest", "pref":"sinfestPref"},
     {"class":"SluggyFreelance", "name":"Sluggy Freelance", "pref":"sluggyfreelancePref", "new":"1"},
+    {"class":"DMFA", "name":"DMFA", "pref":"dmfaPref", "new":"1"},
 
 
     {"class":"SomethingofthatIlk", "name":"Something Of That Ilk", "pref":"somethingofthatilkPref"},
@@ -78,6 +79,8 @@
     {"class":"IrregularWebComic", "name":"Irregular Web Comic", "pref":"irregularWebComicPref"},
     {"class":"PbfComics", "name":"PBF Comics", "pref":"pbfComicsPref"},
     {"class":"AgentXComics", "name":"Agent X Comics", "pref":"agentXComicsPref"},
+
+
     {"class":"DailyKingFeatures.Zits", "name":"Zits", "pref":"zitsComicsPref"},
     {"class":"DailyKingFeatures.BeetleBailey", "name":"Beetle Bailey", "pref":"beetleBaileyComicsPref"},
     {"class":"DailyKingFeatures.BrilliantMindOfEdisonLee", "name":"Brilliant Mind Of Edison Lee", "pref":"edisonLeeComicsPref"},
@@ -89,6 +92,7 @@
     {"class":"DailyKingFeatures.Gil", "name":"Gil", "pref":"gilComicsPref"},
     {"class":"DailyKingFeatures.ArcticCircle", "name":"Arctic Circle", "pref":"arcticCircleComicsPref"},
     {"class":"DailyKingFeatures.PajamaDiaries", "name":"Pajama Diaries", "pref":"pajamaDiariesComicsPref"},
+
 
     {"class":"GoComics.TwoCowsandaChicken", "name":"2 Cows and a Chicken", "pref":"2cowsandachickenPref"},
     {"class":"GoComics.NineChickweedLane", "name":"9 Chickweed Lane", "pref":"9chickweedlanePref"},

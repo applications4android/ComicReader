@@ -1,6 +1,5 @@
 package com.blogspot.applications4android.comicreader.comics;
 
-import android.util.Log;
 import com.blogspot.applications4android.comicreader.comictypes.YearlyArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import java.io.BufferedReader;

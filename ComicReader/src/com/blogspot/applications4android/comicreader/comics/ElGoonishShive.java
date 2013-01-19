@@ -5,13 +5,9 @@ package com.blogspot.applications4android.comicreader.comics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
-import com.blogspot.applications4android.comicreader.comictypes.DailyComic;
 import com.blogspot.applications4android.comicreader.comictypes.YearlyArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 
