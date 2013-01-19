@@ -50,6 +50,7 @@
     {"class":"Sinfest", "name":"Sinfest", "pref":"sinfestPref"},
     {"class":"SluggyFreelance", "name":"Sluggy Freelance", "pref":"sluggyfreelancePref", "new":"1"},
     {"class":"DMFA", "name":"DMFA", "pref":"dmfaPref", "new":"1"},
+    {"class":"TheNoob", "name":"The Noob", "pref":"theNoobPref", "new":"1"},
 
 
     {"class":"SomethingofthatIlk", "name":"Something Of That Ilk", "pref":"somethingofthatilkPref"},
