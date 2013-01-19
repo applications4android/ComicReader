@@ -86,11 +86,11 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 	 */
 	private void _waitForConnectivity() {
 		if (!_isOnWifi(mCtx) && !_isOnMobileData(mCtx)) {
-			Log.d(TAG, "Sleeping for " + SLEEP_DURATION
-					+ " ms hoping that the network will turn on...");
+			Log.d(TAG, "Sleeping for " + SLEEP_DURATION + " ms hoping that the network will turn on...");
 			try {
 				Thread.sleep(SLEEP_DURATION);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 			Log.d(TAG, "Sleeping is over...");
@@ -102,10 +102,8 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 	 */
 	synchronized private void _mutexCall() {
 		mCtx = getApplicationContext();
-		Log.d(TAG,
-				"starting the service for caching comic strips in background ...");
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(mCtx);
+		Log.d(TAG, "starting the service for caching comic strips in background ...");
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mCtx);
 		if (!sp.getBoolean("backgroundCacheEnabledPref", false)) {
 			Log.d(TAG, "Background caching not enabled. Returing back...");
 			return;
@@ -113,14 +111,16 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 		_waitForConnectivity();
 		if (_isOnWifi(mCtx)) {
 			_cacheStrips(sp);
-		} else if (_isOnMobileData(mCtx)) {
+		}
+		else if (_isOnMobileData(mCtx)) {
 			if (sp.getBoolean("mobileDataCacheEnabledPref", false)) {
 				_cacheStrips(sp);
-			} else {
-				Log.d(TAG,
-						"You're on mobile-data, but caching is disabled on this network. So, returning back...");
 			}
-		} else {
+			else {
+				Log.d(TAG, "You're on mobile-data, but caching is disabled on this network. So, returning back...");
+			}
+		}
+		else {
 			Log.d(TAG, "No wifi + no mobile-data. So, returing back...");
 		}
 		Log.d(TAG, "background comic cache service ended ...");
@@ -128,15 +128,12 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 
 	/**
 	 * Callback for cancelling this progress
-	 * 
-	 * @param v
-	 *            view generating this callback
+	 * @param v view generating this callback
 	 */
 	public void onCancelClick(View v) {
 		final Resources res = mCtx.getResources();
 		AlertDialog.Builder alertbox = new AlertDialog.Builder(mCtx);
-		alertbox.setMessage(res
-				.getString(R.string.my_comic_restore_confirmation));
+		alertbox.setMessage(res.getString(R.string.my_comic_restore_confirmation));
 		alertbox.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -152,25 +149,21 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 
 	/**
 	 * Caching the strips
-	 * 
-	 * @param sp
-	 *            shared preferences
+	 * @param sp shared preferences
 	 */
 	private void _cacheStrips(SharedPreferences sp) {
-		mSortType = Integer.parseInt(sp.getString("mySortPref",
-				Integer.toString(ComicClassList.SORT_ALPHABETICAL)));
+		mSortType = Integer.parseInt(sp.getString("mySortPref", Integer.toString(ComicClassList.SORT_ALPHABETICAL)));
 		mNumStrips = Integer.parseInt(sp.getString("numStripsCachePref", "5"));
-		mSyncType = Integer.parseInt(sp.getString("syncTypePref",
-				Integer.toString(SYNC_FROM_LATEST)));
+		mSyncType = Integer.parseInt(sp.getString("syncTypePref", Integer.toString(SYNC_FROM_LATEST)));
 		Log.d(TAG, "Setting up the progress bar for notifying sync updates...");
 		try {
 			mList = new ComicClassList(mCtx.getAssets());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-		mMgr = (NotificationManager) mCtx
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+		mMgr = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
 		mTotal = mList.numSelected() * mNumStrips;
 		if (mSyncType == SYNC_BOTH) {
 			mTotal *= 2;
@@ -178,12 +171,10 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 		mChecked = 0;
 		mStr = mCtx.getResources().getString(R.string.bg_cache_progress_msg);
 		if (sp.getBoolean("notificationPref", true)) {
-			mNotify = new Notification(R.drawable.icon, "ComicReader",
-					System.currentTimeMillis());
+			mNotify = new Notification(R.drawable.icon, "ComicReader", System.currentTimeMillis());
 			Intent in = new Intent(mCtx, ActivityComicReader.class);
 			mNotify.contentIntent = PendingIntent.getActivity(mCtx, 0, in, 0);
-			mNotify.contentView = new RemoteViews(mCtx.getPackageName(),
-					R.layout.bg_cache_progress);
+			mNotify.contentView = new RemoteViews(mCtx.getPackageName(), R.layout.bg_cache_progress);
 			mNotify.flags = Notification.FLAG_ONGOING_EVENT;
 			_updateProgress();
 		}
@@ -203,18 +194,17 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 				com.setLaunchType(Comic.TYPE_CACHING);
 				boolean status = _syncAcomic(com, mNumStrips, mSyncType);
 				com.writeProperties();
-				Log.d(TAG, "Finished working on comic = " + clz.mName
-						+ " status=" + status);
+				Log.d(TAG, "Finished working on comic = " + clz.mName + " status=" + status);
 				Log.d(TAG, "Number of downloads so far=" + mNumDnlds);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			mMgr.cancel(PROGRESS_NOTIFY_ID);
 			e.printStackTrace();
 		}
 		mMgr.cancel(PROGRESS_NOTIFY_ID);
 		if (mNumDnlds <= 0) {
-			Log.d(TAG,
-					"No new strips to be read. So, not setting up a notification...");
+			Log.d(TAG, "No new strips to be read. So, not setting up a notification...");
 			_commitLastSyncTime();
 			return;
 		}
@@ -224,12 +214,9 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 		// TODO: location of notifies.
 
 		if (sp.getBoolean("notificationPref", true)) {
-			mNotify = new Notification(R.drawable.icon, "ComicReader",
-					System.currentTimeMillis());
-			mNotify.flags = Notification.FLAG_AUTO_CANCEL
-					| Notification.FLAG_SHOW_LIGHTS;
-			mNotify.setLatestEventInfo(mCtx, "Comic Reader", "Total of "
-					+ mNumDnlds + " newly downloaded strips", pi);
+			mNotify = new Notification(R.drawable.icon, "ComicReader", System.currentTimeMillis());
+			mNotify.flags = Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
+			mNotify.setLatestEventInfo(mCtx, "Comic Reader", "Total of " + mNumDnlds + " newly downloaded strips", pi);
 			Log.d(TAG, "Notifying the manager of this new notification...");
 			mMgr.notify(NOTIFY_ID, mNotify);
 		}
@@ -243,44 +230,34 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 	private void _commitLastSyncTime() {
 		long lastSync = System.currentTimeMillis();
 		Log.d(TAG, "last sync time = " + lastSync);
-		SharedPreferences.Editor ed = PreferenceManager
-				.getDefaultSharedPreferences(mCtx).edit();
+		SharedPreferences.Editor ed = PreferenceManager.getDefaultSharedPreferences(mCtx).edit();
 		ed.putLong(ActivitySettingsPage.LAST_SYNC_PREF, lastSync);
 		Calendar now = Calendar.getInstance();
 		int mon = now.get(Calendar.MONTH) + 1;
-		String str = "'" + now.get(Calendar.YEAR) + "/" + mon + "/"
-				+ now.get(Calendar.DAY_OF_MONTH);
-		str += " " + now.get(Calendar.HOUR_OF_DAY) + ":"
-				+ now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND)
-				+ "'";
+		String str = "'" + now.get(Calendar.YEAR) + "/" + mon + "/" + now.get(Calendar.DAY_OF_MONTH);
+		str += " " + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND) + "'";
 		ed.putString(ActivitySettingsPage.LAST_SYNC_STRING_PREF, str);
 		ed.commit();
 	}
 
 	/**
 	 * Helper function to check whether we are on WIFI or not
-	 * 
-	 * @param ctxt
-	 *            application context
+	 * @param ctxt application context
 	 * @return true if we are
 	 */
 	private boolean _isOnWifi(Context ctxt) {
-		ConnectivityManager cm = (ConnectivityManager) ctxt
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) ctxt.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		return wifi.isConnected();
 	}
 
 	/**
 	 * Helper function to check whether we are on Mobile-data or not
-	 * 
-	 * @param ctxt
-	 *            application context
+	 * @param ctxt application context
 	 * @return true if we are
 	 */
 	private boolean _isOnMobileData(Context ctxt) {
-		ConnectivityManager cm = (ConnectivityManager) ctxt
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) ctxt.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		return mobile.isConnected();
 	}
@@ -299,13 +276,9 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 
 	/**
 	 * Syncs for a comic
-	 * 
-	 * @param com
-	 *            comic
-	 * @param numStrips
-	 *            number of strips to be synced
-	 * @param sType
-	 *            sync type
+	 * @param com comic
+	 * @param numStrips number of strips to be synced
+	 * @param sType sync type
 	 * @return true if the sync succeeded
 	 */
 	private boolean _syncAcomic(Comic com, int numStrips, int sType) {
@@ -324,11 +297,8 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 
 	/**
 	 * Syncs for a comic from latest strip onwards
-	 * 
-	 * @param com
-	 *            comic
-	 * @param numStrips
-	 *            number of strips to be synced
+	 * @param com comic
+	 * @param numStrips number of strips to be synced
 	 * @return true if the sync succeeded
 	 */
 	private boolean _syncFromLatest(Comic com, int numStrips) {
@@ -344,11 +314,8 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 
 	/**
 	 * Syncs for a comic from previous session strip onwards
-	 * 
-	 * @param com
-	 *            comic
-	 * @param numStrips
-	 *            number of strips to be synced
+	 * @param com comic
+	 * @param numStrips number of strips to be synced
 	 * @return true if the sync succeeded
 	 */
 	private boolean _syncFromPrevSession(Comic com, int numStrips) {
@@ -365,25 +332,18 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 	/**
 	 * Syncs for a comic from both latest strip onwards and previous session
 	 * strip onwards
-	 * 
-	 * @param com
-	 *            comic
-	 * @param numStrips
-	 *            number of strips to be synced in each direction
+	 * @param com comic
+	 * @param numStrips number of strips to be synced in each direction
 	 * @return true if the sync succeeded
 	 */
 	private boolean _syncBoth(Comic com, int numStrips) {
-		return (_syncFromLatest(com, numStrips) && _syncFromPrevSession(com,
-				numStrips));
+		return (_syncFromLatest(com, numStrips) && _syncFromPrevSession(com, numStrips));
 	}
 
 	/**
 	 * Helper function to download the strip
-	 * 
-	 * @param com
-	 *            comic
-	 * @param type
-	 *            strip type
+	 * @param com comic
+	 * @param type strip type
 	 * @return true if download is successful
 	 */
 	private boolean _getStrip(Comic com, int type) {
@@ -392,8 +352,7 @@ public class BackgroundCacheIntentService extends FullyAwakeIntentService {
 			if (s.downloadImage(com)) {
 				mNumDnlds++;
 			}
-			SharedPreferences sp = PreferenceManager
-					.getDefaultSharedPreferences(mCtx);
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mCtx);
 			if (sp.getBoolean("notificationPref", true)) {
 				_updateProgress();
 			}
