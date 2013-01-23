@@ -2,64 +2,87 @@ package com.blogspot.applications4android.comicreader.comics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URI;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
-import com.blogspot.applications4android.comicreader.comictypes.YearlyArchivedComic;
+import android.util.Log;
+
+import com.blogspot.applications4android.comicreader.comictypes.ArchivedComic;
+import com.blogspot.applications4android.comicreader.core.Bound;
+import com.blogspot.applications4android.comicreader.core.Downloader;
 import com.blogspot.applications4android.comicreader.core.Strip;
 
+public class LeastICouldDo extends ArchivedComic {
 
-public class LeastICouldDo extends YearlyArchivedComic {
+	private static final int mFirstYr = 2003;
+	private int mCurrYr;
 
 	@Override
 	public String getComicWebPageUrl() {
 		return "http://www.leasticoulddo.com/";
 	}
 
+	
+	//I dont know what should go here. FetchAllComicUrls does all the work.
 	@Override
-	protected ArrayList<String> getAllComicUrls(BufferedReader reader, int year)
-			throws IOException {
-		ArrayList<String> m_com = new ArrayList<String>(); 
-		String str,str_temp;
-		int i;
-		while((str = reader.readLine()) != null) {
-			i = str.indexOf("/comic/20");
-			if (i != -1) {
-				str_temp = str;
-				str_temp=str_temp.replaceAll(".*href=\"","");
-				str_temp=str_temp.replaceAll("\".*","");
-				str_temp = "http://leasticoulddo.com"+str_temp;
-				m_com.add(str_temp);
+	protected String[] getAllComicUrls(BufferedReader reader) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	//The comics have a start. So I only use that in combination with todays date.
+	//Start date: 2003, 2, 10
+	@Override
+	protected void fetchAllComicUrls() {
+		if (mComicUrls == null) {
+			ArrayList<String> all_yrs = new ArrayList<String>();
+			// get for all years
+			final Calendar c = Calendar.getInstance();
+			final Calendar today = Calendar.getInstance();
+			c.clear();
+			// for (c.set(2003, 2, 10); c.get(Calendar.MONTH) <= 2004;
+			// c.add(Calendar.DAY_OF_YEAR, 1)) {
+			for (c.set(2003, 2, 10); c.compareTo(today) <= -1; c.add(Calendar.DAY_OF_YEAR, 1)) {
+
+				String surl = String.format("http://leasticoulddo.com/comic/%4d%02d%02d/", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+						c.get(Calendar.DAY_OF_MONTH));
+				all_yrs.add(surl);
+				Log.d("ComicDay", surl);
+
 			}
+			mComicUrls = new String[all_yrs.size()];
+			all_yrs.toArray(mComicUrls);
 		}
-		return m_com;
+		mBound = new Bound(0, (long) (mComicUrls.length - 1));
 	}
 
 	@Override
-	protected int getFirstYear() {
-		return 2003;
+	protected String getLatestStripUrl() {
+		fetchAllComicUrls();
+		return getStripUrlFromId(mComicUrls.length - 1);
 	}
 
 	@Override
-	protected String getArchiveUrl(int year) {
-		return "http://leasticoulddo.com/archive/calendar/"+year;
-	}
-
-	@Override
-	protected boolean neededReversal() {
-		return false;
+	protected String getArchiveUrl() {
+		return "http://www.leasticoulddo.com/";
 	}
 
 	@Override
 	protected boolean htmlNeeded() {
-		return false;
+		return true;
 	}
 
 	@Override
-	protected String parse(String url, BufferedReader reader, Strip strip)
-			throws IOException {
+	protected String parse(String url, BufferedReader reader, Strip strip) throws IOException {
 		String date = url.replaceAll(".*comic/", "");
-        strip.setTitle("Least I Could Do: " + date);
+		date = date.replaceAll("/", "");
+		strip.setTitle("Least I Could Do: " + date);
 		strip.setText("-NA-");
 		return "http://cdn.leasticoulddo.com/comics/" + date + ".gif";
 	}
+
 }
