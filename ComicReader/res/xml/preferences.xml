@@ -49,7 +49,8 @@
 		android:key="notificationPref"
         android:title="Display Notifications"
         android:summary="Display notifications to appear in the notification bar"
-        android:defaultValue="true" />
+        android:defaultValue="true"
+        android:dependency="backgroundCacheEnabledPref" />
 	<ListPreference
 		android:title="Sort (My Comics)"
 		android:summary="Sort Order in My Comics Page"
