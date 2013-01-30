@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.blogspot.applications4android.comicreader"
       android:versionCode="25"
-      android:versionName="2.1.3" >
+      android:installLocation="auto"
+      android:versionName="2.1.4" >
     <uses-sdk android:minSdkVersion="7" />
 
     <uses-permission android:name="android.permission.INTERNET" />
