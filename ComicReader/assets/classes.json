@@ -6,6 +6,7 @@
     {"class":"ASofterWorld", "name":"A Softer World", "pref":"asofterworldPref"},
     {"class":"AbstruseGoose", "name":"Abstruse Goose", "pref":"abstrusegoosePref"},
     {"class":"AmazingSuperpowers", "name":"Amazing Superpowers", "pref":"amazingsuperpowersPref"},
+    {"class":"AwkwardZombie", "name":"Awkward Zombie", "pref":"awkwardzombiePref", "new":"1"},
     {"class":"Blondie", "name":"Blondie", "pref":"blondiePref"},
     {"class":"BugComic", "name":"Bug Comic", "pref":"bugcomicPref"},
     {"class":"Bunbuns", "name":"Bunbuns", "pref":"bunbunPref"},
