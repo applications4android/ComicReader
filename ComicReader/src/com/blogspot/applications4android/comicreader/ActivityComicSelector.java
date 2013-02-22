@@ -78,7 +78,7 @@ public class ActivityComicSelector extends ComicActivity {
         public void onClick(View v) {
             Log.d(TAG, "ComicHasBeenDisabled getting triggered...");
             String msg = "SORRY! Comic:'" + (String)v.getTag() + "' had to be removed from the list based on the request from its authors!";
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }
 

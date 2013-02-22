@@ -57,7 +57,7 @@ public class ComicClassList {
 	//// NOTE NOTE NOTE NOTE ////
 	/// Before releasing to market, do remember to set the below flag to 'true'!!!!!!!!
 	/** flag which will tell whether to use the below array to filtering the comics! */
-	private static boolean FILTER_COMICS = true;
+	private static boolean FILTER_COMICS = false;
 
 	/** list of comics that cannot be shown to the users! */
 	private static final String[] FILTER_COMICS_LIST = {
