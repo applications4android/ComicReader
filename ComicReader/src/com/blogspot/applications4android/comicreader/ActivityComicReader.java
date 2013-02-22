@@ -3,14 +3,6 @@ package com.blogspot.applications4android.comicreader;
 import java.io.File;
 import java.util.Calendar;
 
-import com.blogspot.applications4android.comicreader.core.Cache;
-import com.blogspot.applications4android.comicreader.core.Comic;
-import com.blogspot.applications4android.comicreader.core.ComicActivity;
-import com.blogspot.applications4android.comicreader.core.ComicClass;
-import com.blogspot.applications4android.comicreader.core.ComicClassList;
-import com.blogspot.applications4android.comicreader.core.FileUtils;
-import com.blogspot.applications4android.comicreader.core.IntentGen;
-import com.blogspot.applications4android.comicreader.exceptions.ComicNotFoundException;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -30,12 +22,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.blogspot.applications4android.comicreader.core.Cache;
+import com.blogspot.applications4android.comicreader.core.Comic;
+import com.blogspot.applications4android.comicreader.core.ComicActivity;
+import com.blogspot.applications4android.comicreader.core.ComicClass;
+import com.blogspot.applications4android.comicreader.core.ComicClassList;
+import com.blogspot.applications4android.comicreader.core.FileUtils;
+import com.blogspot.applications4android.comicreader.core.IntentGen;
+import com.blogspot.applications4android.comicreader.exceptions.ComicNotFoundException;
 
 
 
@@ -66,7 +68,9 @@ public class ActivityComicReader extends ComicActivity {
 	protected static FavoriteLauncher mFL = null;
 	/** prev-session activity */
 	protected static PrevSessionLauncher mPL = null;
-
+	/** web page display activity */
+	protected static ComicMainWebPageDisplay mWP = null;
+	
 	/** sort type */
 	protected int mType;
 
@@ -110,6 +114,39 @@ public class ActivityComicReader extends ComicActivity {
 		}
 	}
 
+	/** to launch the alertdialog for opening the comic in a web page */
+	private class ComicMainWebPageDisplay implements OnLongClickListener {
+		public boolean onLongClick(View v) {
+			String title = (String) v.getTag();
+			try {
+				Comic c = mList.getComicFromTitle(title);
+				if(c == null) {
+					Log.e(TAG, "no comic found for title="+title);
+					return false;
+				}
+				final String url = c.getComicWebPageUrl();
+				AlertDialog.Builder alertbox = new AlertDialog.Builder(ActivityComicReader.this);
+				alertbox.setMessage("Visit website of '" + title + "'?");
+				alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface arg0, int arg1) {
+						ActivityComicReader.this.startActivity(IntentGen.linkViewIntent(url));
+					}
+				});
+				alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface arg0, int arg1) {
+					}
+				});
+				alertbox.show();
+				return true;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
+
+	
 
 	/**
 	 * adapter class for efficient traversal of list items displayed in the main activity
@@ -141,6 +178,7 @@ public class ActivityComicReader extends ComicActivity {
 				holder = new ViewHolder();
 				holder.latest = (Button) convertView.findViewById(R.id.comic_item_latest);
 				holder.latest.setOnClickListener(mLL);
+				holder.latest.setOnLongClickListener(mWP);
 				holder.favorite = (Button) convertView.findViewById(R.id.comic_item_fav);
 				holder.favorite.setOnClickListener(mFL);
 				holder.previous = (Button) convertView.findViewById(R.id.comic_item_prev);
@@ -193,6 +231,9 @@ public class ActivityComicReader extends ComicActivity {
 		}
 		if(mPL == null) {
 			mPL = new PrevSessionLauncher();
+		}
+		if(mWP == null) {
+			mWP = new ComicMainWebPageDisplay();
 		}
 		GetComicsTask get_task = new GetComicsTask();
 		get_task.execute((Void[])null);
