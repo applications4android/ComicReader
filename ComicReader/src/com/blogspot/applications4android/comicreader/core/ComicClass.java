@@ -16,6 +16,8 @@ public class ComicClass {
 	public boolean mSel;
 	/** num unread strips */
 	public int mUnread;
+	/** can be displayed in the main list or not */
+	public boolean mCanDisplay;
 
 	/**
 	 * Constructor
@@ -27,5 +29,6 @@ public class ComicClass {
 		mNew = false;
 		mSel = false;
 		mUnread = 0;
+		mCanDisplay = true;
 	}
 }

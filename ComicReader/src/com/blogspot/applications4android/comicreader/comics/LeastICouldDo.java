@@ -2,23 +2,18 @@ package com.blogspot.applications4android.comicreader.comics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URI;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-
 import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.comictypes.ArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Bound;
-import com.blogspot.applications4android.comicreader.core.Downloader;
 import com.blogspot.applications4android.comicreader.core.Strip;
 
 public class LeastICouldDo extends ArchivedComic {
 
-	private static final int mFirstYr = 2003;
-	private int mCurrYr;
+//	private static final int mFirstYr = 2003;
+//	private int mCurrYr;
 
 	@Override
 	public String getComicWebPageUrl() {
@@ -47,7 +42,6 @@ public class LeastICouldDo extends ArchivedComic {
 			// for (c.set(2003, 2, 10); c.get(Calendar.MONTH) <= 2004;
 			// c.add(Calendar.DAY_OF_YEAR, 1)) {
 			for (c.set(2003, 2, 10); c.compareTo(today) <= -1; c.add(Calendar.DAY_OF_YEAR, 1)) {
-
 				String surl = String.format("http://leasticoulddo.com/comic/%4d%02d%02d/", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
 						c.get(Calendar.DAY_OF_MONTH));
 				all_yrs.add(surl);

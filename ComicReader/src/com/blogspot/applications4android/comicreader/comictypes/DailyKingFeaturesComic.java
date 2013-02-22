@@ -22,7 +22,7 @@ public abstract class DailyKingFeaturesComic extends DailyComic {
 	protected Calendar mFirstCal = null;
 
 	/** list of month names */
-	private static final String[] MONTH_NAMES = {	"january", "febraury", "march",
+	private static final String[] MONTH_NAMES = {	"january", "february", "march",
 													"april", "may", "june", "july",
 													"august", "september", "october",
 													"november", "december"	};

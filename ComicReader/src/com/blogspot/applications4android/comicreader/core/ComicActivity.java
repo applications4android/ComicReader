@@ -32,6 +32,10 @@ public class ComicActivity extends Activity {
 	protected static int mColor1 = Color.parseColor("#222222");
 	/** color2 for the list view row */
 	protected static int mColor2 = Color.parseColor("#333333");
+    /** color for disabled comic's text */
+    protected static int mDisabledColor = Color.parseColor("#722020");
+    /** color for enabled comic's text */
+    protected static int mEnabledColor = Color.parseColor("#ffffff");
 
 	/** the broadcast receiver for network connectivity check */
 	//private ConnectivityCheck mNetworkChk;

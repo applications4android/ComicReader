@@ -49,6 +49,8 @@ public class ActivityComicSelector extends ComicActivity {
 	protected static PreviewLauncher mPL = null;
 	/** web page display activity */
 	protected static ComicMainWebPageDisplay mWP = null;
+	/** to display a message describing why we had to disable this comic! */
+	protected static ComicHasBeenDisabled mDis = null;
 
 	/** sort type */
 	protected int mType;
@@ -57,18 +59,28 @@ public class ActivityComicSelector extends ComicActivity {
 	private boolean mStoreList = true;
 
 
-	/** to launch the strip viewer activity in preview mode */
-	private class PreviewLauncher implements OnClickListener {
-		@Override
-		public void onClick(View v) {
-			Log.d(TAG, "PreviewLauncher getting triggered...");
-			Intent i = new Intent();
-			i.setClass(ActivityComicSelector.this, ComicStripViewer.class);
-			i.putExtra("title", (String)v.getTag());
-			i.putExtra("mode", Comic.TYPE_PREVIEW);
-			startActivityForResult(i, 0);
-		}
-	}
+    /** to launch the strip viewer activity in preview mode */
+    private class PreviewLauncher implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Log.d(TAG, "PreviewLauncher getting triggered...");
+            Intent i = new Intent();
+            i.setClass(ActivityComicSelector.this, ComicStripViewer.class);
+            i.putExtra("title", (String)v.getTag());
+            i.putExtra("mode", Comic.TYPE_PREVIEW);
+            startActivityForResult(i, 0);
+        }
+    }
+
+    /** to display a message to the user */
+    private class ComicHasBeenDisabled implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Log.d(TAG, "ComicHasBeenDisabled getting triggered...");
+            String msg = "SORRY! Comic:'" + (String)v.getTag() + "' had to be removed from the list based on the request from its authors!";
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        }
+    }
 
 	/** to launch the alertdialog for opening the comic in a web page */
 	private class ComicMainWebPageDisplay implements OnLongClickListener {
@@ -125,31 +137,29 @@ public class ActivityComicSelector extends ComicActivity {
 		public long getItemId(int position) {
 			return position;
 		}
+        /** comic select checkbox */
+        OnClickListener ocl = new OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    int pos = (Integer) v.getTag();
+                    mList.toggleSelected(pos);
+                }
+                catch (ComicNotFoundException e) {
+                    e.printStackTrace();
+                }
+                notifyDataSetChanged();
+            }
+        };
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
 			if (convertView == null) {
 				convertView = mInflater.inflate(R.layout.comic_selector_listview_content, null);
 				holder = new ViewHolder();
-				// comic select checkbox
-				OnClickListener ocl = new OnClickListener() {
-					public void onClick(View v) {
-						try {
-							int pos = (Integer) v.getTag();
-							mList.toggleSelected(pos);
-						}
-						catch (ComicNotFoundException e) {
-							e.printStackTrace();
-						}
-						notifyDataSetChanged();
-					}
-				};
 				holder.text_name = (TextView) convertView.findViewById(R.id.comic_settings_item_name);
-				holder.text_name.setOnLongClickListener(mWP);
 				holder.sel = (CheckBox) convertView.findViewById(R.id.comic_settings_item);
 				holder.sel.setOnClickListener(ocl);
 				holder.preview = (Button) convertView.findViewById(R.id.comic_settings_item_preview);
-				holder.preview.setOnClickListener(mPL);
 				convertView.setTag(holder);
 			}
 			else {
@@ -159,14 +169,20 @@ public class ActivityComicSelector extends ComicActivity {
 				ComicClass clz = mList.getComicClassFromIndex(position);
 				holder.text_name.setText(clz.mName);
 				holder.text_name.setTag(clz.mName);
-				holder.sel.setChecked(clz.mSel);
+				holder.sel.setChecked(clz.mSel && clz.mCanDisplay);
 				holder.sel.setTag(position);
 				holder.preview.setTag(clz.mName);
+				if(clz.mCanDisplay) {
+				    holder.setEnabledListeners();
+				}
+				else {
+				    holder.setDisabledListeners();
+				}
 			}
 			catch(ComicNotFoundException e) {
 				e.printStackTrace();
 			}
-			convertView.setBackgroundColor((position & 1) == 1 ? mColor1 : mColor2);
+            convertView.setBackgroundColor((position & 1) == 1 ? mColor1 : mColor2);
 			return convertView;		
 		}
 
@@ -180,6 +196,20 @@ public class ActivityComicSelector extends ComicActivity {
 			CheckBox sel;
 			/** preview button */
 			Button preview;
+            /** Set the holder to respond to the events correctly */
+            void setEnabledListeners() {
+                text_name.setOnLongClickListener(mWP);
+                text_name.setTextColor(mEnabledColor);
+                preview.setOnClickListener(mPL);
+                sel.setEnabled(true);
+            }
+            /** Set the holder to not respond to the events (this occurs when we have to remove the comic!) */
+            void setDisabledListeners() {
+                text_name.setOnClickListener(mDis);
+                text_name.setTextColor(mDisabledColor);
+                sel.setEnabled(false);
+                preview.setOnClickListener(mDis);
+            }
 		}
 	}
 
@@ -192,6 +222,9 @@ public class ActivityComicSelector extends ComicActivity {
 		}
 		if(mWP == null) {
 			mWP = new ComicMainWebPageDisplay();
+		}
+		if(mDis == null) {
+		    mDis = new ComicHasBeenDisabled();
 		}
 		GetAllComicsTask get_task = new GetAllComicsTask();
 		get_task.execute((Void[])null);

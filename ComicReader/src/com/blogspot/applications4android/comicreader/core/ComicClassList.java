@@ -57,10 +57,23 @@ public class ComicClassList {
 	//// NOTE NOTE NOTE NOTE ////
 	/// Before releasing to market, do remember to set the below flag to 'true'!!!!!!!!
 	/** flag which will tell whether to use the below array to filtering the comics! */
-	private static boolean FILTER_COMICS = false;
+	private static boolean FILTER_COMICS = true;
 
 	/** list of comics that cannot be shown to the users! */
-	private static final String[] FILTER_COMICS_LIST = { "Cyanide and Happiness" };
+	private static final String[] FILTER_COMICS_LIST = {
+	    "Cyanide and Happiness",
+	    "Arctic Circle",
+	    "Beetle Bailey",
+	    "Bleeker",
+	    "Brilliant Mind Of Edison Lee",
+	    "Gil",
+	    "Pajama Diaries",
+	    "Popeye",
+	    "Retail Comic",
+	    "Rhymes With Orange",
+	    "Tina's Groove",
+	    "Zits"
+	};
 
 
 	/**
@@ -315,7 +328,7 @@ public class ComicClassList {
 		int i = 0;
 		int j = 0;
 		for(ComicClass clz : mClasses) {
-			if(clz.mSel) {
+			if(clz.mSel && clz.mCanDisplay) {
 				sel[j] = i;
 				++j;
 			}
@@ -381,7 +394,7 @@ public class ComicClassList {
 	public int numSelected() {
 		int i = 0;
 		for(ComicClass clz : mClasses) {
-			if(clz.mSel) {
+			if(clz.mSel && clz.mCanDisplay) {
 				++i;
 			}
 		}
@@ -461,9 +474,9 @@ public class ComicClassList {
 		for(int i=0;i<numClasses;i++) {
 			JSONObject clz = classes.getJSONObject(i);
 			String key = clz.getString("name");
-			if(!_canAdd(key)) {
-				Log.d(TAG, "Not adding the comic '" + key + "' to the list...");
-				continue;
+			boolean canAdd = _canAdd(key);
+			if(!canAdd) {
+				Log.d(TAG, "Comic '" + key + "' cannot be displayed due to request from the comic-authors...");
 			}
 			ComicClass cl = new ComicClass();
 			cl.mClass = clz.getString("class");
@@ -476,6 +489,7 @@ public class ComicClassList {
 				cl.mNew = false;
 			}
 			cl.mSel = false;
+			cl.mCanDisplay = canAdd;
 			com_arr.add(cl);
 			mIdxs.put(key, j);
 			j++;
