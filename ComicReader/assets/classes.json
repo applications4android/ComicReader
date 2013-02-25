@@ -23,6 +23,7 @@
     {"class":"DogHouseDiaries", "name":"Doghouse Diaries", "pref":"doghousediariesPref"}, 
     {"class":"DumbingofAge", "name":"Dumbing of Age", "pref":"dumbingofagePref"},
     {"class":"EdmundFinney", "name":"Edmund Finney's Quest to Find the Meaning of Life", "pref":"edmundfinneyPref", "new":"1"},
+    {"class":"EerieCuties","name":"Eerie Cuties", "pref":"eeriecutiesPref", "new":"1"},
     {"class":"ElGoonishShive","name":"El Goonish Shive", "pref":"elgoonishshivePref", "new":"1"},
     {"class":"FeyWinds", "name":"Fey Winds", "pref":"feywindsPref"},
     {"class":"FreeFall", "name":"Free Fall", "pref":"freefallPref"},
