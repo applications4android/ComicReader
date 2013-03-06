@@ -31,6 +31,7 @@
     {"class":"GeneralProtectionFault", "name":"General protection fault", "pref":"gpfPref", "new":"1"},
     {"class":"GirlGenius", "name":"Girl Genius", "pref":"girlgeniusPref"},
     {"class":"GirlswithSlingshots", "name":"Girls with Slingshots", "pref":"girlswithslingshotsPref"},
+    {"class":"GrrlPower", "name":"Grrl Power", "pref":"grrlpowerPref", "new":"1"},
     {"class":"GuComics", "name":"Gu Comics", "pref":"gucomicsPref"},
     {"class":"GunnerkriggCourt", "name":"Gunnerkrigg Court", "pref":"gunnerkriggcourtPref"},
     {"class":"JoeAndMonkey", "name":"Joe And Monkey", "pref":"joeandmonkeyPref"},
