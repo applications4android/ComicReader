@@ -286,13 +286,12 @@ public class ActivityComicReader extends ComicActivity {
     		try {
     			mList.storeSelected();
         		File src = mList.selectedFile();
-        		File dst = new File(FileUtils.getSdcard(), "backup_selected.json");
-        		dst.delete();
-        		if(FileUtils.copyFile(src, dst)) {
-        			msg = "Successfully backed up 'My Comics' list to '" + dst.getPath() + "'";
+        		String zipFilename = FileUtils.getSdcard() + "/backup_favComics.zip";
+        		if (FileUtils.favSave(mList, src.getPath(), zipFilename)) {
+        			msg = "Successfully backed up 'My Comics' list to '" + zipFilename + "'";
         		}
         		else {
-        			msg = "Failed to backup 'My Comics' list to '" + dst.getPath() + "'";
+        			msg = "Failed to backup 'My Comics' list to '" + zipFilename + "'";
         		}
     		}
     		catch(Exception e) {
@@ -306,7 +305,6 @@ public class ActivityComicReader extends ComicActivity {
     	{
     		final File dst = mList.selectedFile();
     		dst.delete();
-    		final File src = new File(FileUtils.getSdcard(), "backup_selected.json");
 			AlertDialog.Builder alertbox = new AlertDialog.Builder(ActivityComicReader.this);
 	        alertbox.setMessage(res.getString(R.string.my_comic_restore_confirmation));
 	        alertbox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -317,11 +315,12 @@ public class ActivityComicReader extends ComicActivity {
 	        alertbox.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface arg0, int arg1) {
 	        		String msg;
-	        		if(FileUtils.copyFile(src, dst)) {
-	        			msg = "Successfully restored 'My Comics' list from '" + src.getPath() + "' to" + dst.getPath();
+	        		String zipFilename = FileUtils.getSdcard() + "/backup_favComics.zip";
+	        		if (FileUtils.favLoad(zipFilename)) {
+	        			msg = "Successfully restored 'My Comics' list from '" + zipFilename + "' to" + FileUtils.getComicRoot();
 	        		}
 	        		else {
-	        			msg = "Failed to restore 'My Comics' list from '" + src.getPath() + "'";
+	        			msg = "Failed to restore 'My Comics' list from '" + zipFilename + "'";
 	        		}
 	        		Toast.makeText(ActivityComicReader.this, msg, Toast.LENGTH_LONG).show();
 	        		GetComicsTask get_task = new GetComicsTask();

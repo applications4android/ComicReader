@@ -406,7 +406,11 @@ public abstract class Comic extends ComicParser {
 		}
 		return mCurrent.hasText();
 	}
-
+	
+	public boolean containsFavs(){
+			return mFavs.size() > 0 ? true : false;
+	}
+	
 	/**
 	 * Creates a valid file name out of the strip's title
 	 * 
