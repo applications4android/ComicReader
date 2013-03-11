@@ -156,7 +156,7 @@ public class MenageA3 extends ArchivedComic {
 		final_str = final_str.replaceAll("\".*", "");
 		final_title = final_title.replaceAll(".*.::", "");
 		final_title = final_title.replaceAll("</title>.*", "");
-		strip.setTitle("Ménage à 3 :" + final_title);
+		strip.setTitle("MÃ©nage Ã  3 :" + final_title);
 		return final_str;
 	}
 
