@@ -45,6 +45,14 @@
 		android:entries="@array/sync_type"
 		android:entryValues="@array/sync_type_values"
 		android:dependency="backgroundCacheEnabledPref" />
+	<ListPreference
+		android:key="shortcutButton"
+		android:title="Shortcut Button"
+		android:summary="What the shortcut button will display"
+		android:defaultValue="1"
+		android:entries="@array/sc_button"
+		android:entryValues="@array/sc_button_values"
+		android:dependency="backgroundCacheEnabledPref" />		
 	<CheckBoxPreference
 		android:key="notificationPref"
         android:title="Display Notifications"

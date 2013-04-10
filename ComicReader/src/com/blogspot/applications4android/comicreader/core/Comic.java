@@ -41,6 +41,8 @@ public abstract class Comic extends ComicParser {
 	public static final int TYPE_PREVIEW = 4;
 	/** background caching */
 	public static final int TYPE_CACHING = 5;
+	/** unread comics */
+	public static final int TYPE_UNREAD = 6;
 
 	/** navigate to latest strip */
 	public static final int NAV_LATEST = 11;
@@ -90,8 +92,12 @@ public abstract class Comic extends ComicParser {
 	private int mType;
 	/** favorites array */
 	private ArrayList<String> mFavs;
+	/** favorites array */
+	private ArrayList<String> mUnr;
 	/** for traversing on favorites array */
 	private int mFavIdx;
+	/** for traversing on unread array */
+	private int mUnrIdx;
 	/** background caching enabled */
 	private boolean mCacheEnabled;
 
@@ -110,6 +116,7 @@ public abstract class Comic extends ComicParser {
 		mStrips = new HashMap<String, Strip>();
 		mType = TYPE_LATEST;
 		mFavs = new ArrayList<String>();
+		mUnr = new ArrayList<String>();
 		mFavIdx = 0;
 		mCacheEnabled = true;
 	}
@@ -237,6 +244,17 @@ public abstract class Comic extends ComicParser {
 				mStrips.put(s.uid(), s);
 				if (s.isFavorite()) {
 					mFavs.add(s.uid());
+				}
+			}
+		}
+		if (root.has("mStrips")) {
+			JSONArray arr = root.getJSONArray("mStrips");
+			int len = arr.length();
+			for (int i = 0; i < len; ++i) {
+				Strip s = Strip.readFromJsonObject(arr.getJSONObject(i));
+				mStrips.put(s.uid(), s);
+				if (!s.isRead()) {
+					mUnr.add(s.uid());
 				}
 			}
 		}
@@ -382,7 +400,7 @@ public abstract class Comic extends ComicParser {
 			}
 		}
 	}
-
+	
 	/**
 	 * Whether the current comic is favorite or not
 	 * 
@@ -394,6 +412,7 @@ public abstract class Comic extends ComicParser {
 		}
 		return mCurrent.isFavorite();
 	}
+
 
 	/**
 	 * Whether the current comic has image text or not
@@ -469,6 +488,32 @@ public abstract class Comic extends ComicParser {
 			case NAV_RANDOM:
 				mFavIdx = RandUtils.getPositiveInt(mFavs.size(), 0);
 				return _getFavoriteStrip();
+			case NAV_CURRENT:
+				return mCurrent;
+			default:
+				ComicException ce = new ComicException("Bad navigation-type passed: " + type);
+				throw ce;
+			}
+		}
+		if (mType == TYPE_UNREAD) {
+			switch (type) {
+			case NAV_LATEST:
+				mUnrIdx = mUnr.size() - 1;
+				return _getUnreadStrip();
+			case NAV_FIRST:
+				mUnrIdx = 0;
+				return _getUnreadStrip();
+			case NAV_NEXT:
+				++mUnrIdx;
+				mUnrIdx = (mUnrIdx >= mUnr.size()) ? 0 : mUnrIdx;
+				return _getUnreadStrip();
+			case NAV_PREVIOUS:
+				--mUnrIdx;
+				mUnrIdx = (mUnrIdx < 0) ? mUnr.size() - 1 : mUnrIdx;
+				return _getUnreadStrip();
+			case NAV_RANDOM:
+				mUnrIdx = RandUtils.getPositiveInt(mUnr.size(), 0);
+				return _getUnreadStrip();
 			case NAV_CURRENT:
 				return mCurrent;
 			default:
@@ -790,6 +835,16 @@ public abstract class Comic extends ComicParser {
 		return _querySetCurrentUid(uid);
 	}
 
+	/**
+	 * Returns the current favorite strip
+	 * 
+	 * @return strip
+	 */
+	private Strip _getUnreadStrip() {
+		String uid = mUnr.get(mUnrIdx);
+		return _querySetCurrentUid(uid);
+	}
+	
 	/**
 	 * Helper function to return the properties json file associated with this
 	 * comic
