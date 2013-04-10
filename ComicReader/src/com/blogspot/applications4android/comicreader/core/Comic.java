@@ -94,10 +94,10 @@ public abstract class Comic extends ComicParser {
 	private ArrayList<String> mFavs;
 	/** favorites array */
 	private ArrayList<String> mUnr;
-	/** for traversing on favorites array */
-	private int mFavIdx;
-	/** for traversing on unread array */
-	private int mUnrIdx;
+	/** for traversing on favorites array Also a hack to all pass by reference */
+	private int[] mFavIdx;
+	/** for traversing on unread array Also a hack to all pass by reference*/
+	private int[] mUnrIdx;
 	/** background caching enabled */
 	private boolean mCacheEnabled;
 
@@ -117,7 +117,8 @@ public abstract class Comic extends ComicParser {
 		mType = TYPE_LATEST;
 		mFavs = new ArrayList<String>();
 		mUnr = new ArrayList<String>();
-		mFavIdx = 0;
+		mFavIdx = new int[] {0};
+		mUnrIdx = new int[] {0};	
 		mCacheEnabled = true;
 	}
 
@@ -247,6 +248,7 @@ public abstract class Comic extends ComicParser {
 				}
 			}
 		}
+		// Find and add all unread comics to the array list.
 		if (root.has("mStrips")) {
 			JSONArray arr = root.getJSONArray("mStrips");
 			int len = arr.length();
@@ -469,57 +471,11 @@ public abstract class Comic extends ComicParser {
 	 */
 	public Strip navigateStrip(int type) throws ComicException {
 		mCache.makeSpace();
+		// If the comic view type is favorite navigate using mFavs array.
 		if (mType == TYPE_FAVORITE) {
-			switch (type) {
-			case NAV_LATEST:
-				mFavIdx = mFavs.size() - 1;
-				return _getFavoriteStrip();
-			case NAV_FIRST:
-				mFavIdx = 0;
-				return _getFavoriteStrip();
-			case NAV_NEXT:
-				++mFavIdx;
-				mFavIdx = (mFavIdx >= mFavs.size()) ? 0 : mFavIdx;
-				return _getFavoriteStrip();
-			case NAV_PREVIOUS:
-				--mFavIdx;
-				mFavIdx = (mFavIdx < 0) ? mFavs.size() - 1 : mFavIdx;
-				return _getFavoriteStrip();
-			case NAV_RANDOM:
-				mFavIdx = RandUtils.getPositiveInt(mFavs.size(), 0);
-				return _getFavoriteStrip();
-			case NAV_CURRENT:
-				return mCurrent;
-			default:
-				ComicException ce = new ComicException("Bad navigation-type passed: " + type);
-				throw ce;
-			}
-		}
-		if (mType == TYPE_UNREAD) {
-			switch (type) {
-			case NAV_LATEST:
-				mUnrIdx = mUnr.size() - 1;
-				return _getUnreadStrip();
-			case NAV_FIRST:
-				mUnrIdx = 0;
-				return _getUnreadStrip();
-			case NAV_NEXT:
-				++mUnrIdx;
-				mUnrIdx = (mUnrIdx >= mUnr.size()) ? 0 : mUnrIdx;
-				return _getUnreadStrip();
-			case NAV_PREVIOUS:
-				--mUnrIdx;
-				mUnrIdx = (mUnrIdx < 0) ? mUnr.size() - 1 : mUnrIdx;
-				return _getUnreadStrip();
-			case NAV_RANDOM:
-				mUnrIdx = RandUtils.getPositiveInt(mUnr.size(), 0);
-				return _getUnreadStrip();
-			case NAV_CURRENT:
-				return mCurrent;
-			default:
-				ComicException ce = new ComicException("Bad navigation-type passed: " + type);
-				throw ce;
-			}
+			return _specialViewNavigation(type, mFavIdx, mFavs);
+		}else if (mType == TYPE_UNREAD) {
+			return _specialViewNavigation(type, mUnrIdx, mUnr);
 		}
 		switch (type) {
 		case NAV_LATEST:
@@ -543,6 +499,7 @@ public abstract class Comic extends ComicParser {
 			throw ce;
 		}
 	}
+
 
 	/**
 	 * Gets latest strip
@@ -809,6 +766,44 @@ public abstract class Comic extends ComicParser {
 	// //// protected methods //////
 
 	// //// private methods //////
+	
+	/**
+	 * 
+	 * Provides a way to navigate menu for Favorites and Unread comics
+	 * 
+	 * @param type The type of comic being looked for
+	 * @param idx index of array of strips
+	 * @param mArr the array of strips
+	 * @return strip
+	 * @throws ComicException
+	 */
+	private Strip _specialViewNavigation(int type, int[] idx, ArrayList<String> mArr) throws ComicException {
+		switch (type) {
+		case NAV_LATEST:
+			idx[0] = mArr.size() - 1;
+			return _getStrip( idx[0],  mArr);
+		case NAV_FIRST:
+			idx[0] = 0;
+			return _getStrip( idx[0],  mArr);
+		case NAV_NEXT:
+			++idx[0];
+			idx[0] = (idx[0] >= mArr.size()) ? 0 : idx[0];
+			return _getStrip( idx[0],  mArr);
+		case NAV_PREVIOUS:
+			--idx[0];
+			idx[0] = (idx[0] < 0) ? mArr.size() - 1 : idx[0];
+			return _getStrip( idx[0],  mArr);
+		case NAV_RANDOM:
+			idx[0] = RandUtils.getPositiveInt(mArr.size(), 0);
+			return _getStrip( idx[0],  mArr);
+		case NAV_CURRENT:
+			return mCurrent;
+		default:
+			ComicException ce = new ComicException("Bad navigation-type passed: " + type);
+			throw ce;
+		}
+	}
+
 	/**
 	 * Helper function to query for a strip and set it as current
 	 * 
@@ -826,25 +821,18 @@ public abstract class Comic extends ComicParser {
 	}
 
 	/**
-	 * Returns the current favorite strip
 	 * 
+	 * Returns the current strip
+	 * 
+	 * @param idx index of array to return 
+	 * @param mArr array of strip index that are possible to return
 	 * @return strip
 	 */
-	private Strip _getFavoriteStrip() {
-		String uid = mFavs.get(mFavIdx);
+	private Strip _getStrip(int idx, ArrayList<String> mArr ) {
+		String uid = mArr.get(idx);
 		return _querySetCurrentUid(uid);
 	}
 
-	/**
-	 * Returns the current favorite strip
-	 * 
-	 * @return strip
-	 */
-	private Strip _getUnreadStrip() {
-		String uid = mUnr.get(mUnrIdx);
-		return _querySetCurrentUid(uid);
-	}
-	
 	/**
 	 * Helper function to return the properties json file associated with this
 	 * comic

@@ -190,6 +190,8 @@ public class ActivityComicReader extends ComicActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
+			
+			//Added a way to get button from settings menu
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
 	    	int mscType = Integer.parseInt(sp.getString("shortcutButton", Integer.toString(1)));
 			
@@ -199,6 +201,7 @@ public class ActivityComicReader extends ComicActivity {
 				holder.latest = (Button) convertView.findViewById(R.id.comic_item_latest);
 				holder.latest.setOnClickListener(mLL);
 				holder.latest.setOnLongClickListener(mWP);
+				//Switch what shortcut button is to be shown according to the settings. 
 				switch(mscType){
 				case 1:
 				holder.favorite = (Button) convertView.findViewById(R.id.comic_item_scb);
@@ -232,6 +235,7 @@ public class ActivityComicReader extends ComicActivity {
 				holder.latest.setText(txt);
 				holder.latest.setTag(cls.mName);
 				
+				//TODO: I don't know what this does but it has to be set correctly or android crashes
 				switch(mscType){
 				case 1:
 				holder.favorite.setTag(cls.mName);
