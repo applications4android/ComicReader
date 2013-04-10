@@ -92,7 +92,7 @@ public abstract class Comic extends ComicParser {
 	private int mType;
 	/** favorites array */
 	private ArrayList<String> mFavs;
-	/** favorites array */
+	/** unread array */
 	private ArrayList<String> mUnr;
 	/** for traversing on favorites array Also a hack to all pass by reference */
 	private int[] mFavIdx;
