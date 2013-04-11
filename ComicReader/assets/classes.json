@@ -55,6 +55,7 @@
     {"class":"SluggyFreelance", "name":"Sluggy Freelance", "pref":"sluggyfreelancePref", "new":"1"},
     {"class":"DMFA", "name":"DMFA", "pref":"dmfaPref", "new":"1"},
     {"class":"TheNoob", "name":"The Noob", "pref":"theNoobPref", "new":"1"},
+    {"class":"TwoKinds", "name":"Two Kinds", "pref":"twokindsPref", "new":"1"},
 
 
     {"class":"SomethingofthatIlk", "name":"Something Of That Ilk", "pref":"somethingofthatilkPref"},
@@ -68,6 +69,7 @@
     {"class":"TimeTrabble", "name":"Time Trabble", "pref":"timetrabblePref"},
     {"class":"Tundra", "name":"Tundra", "pref":"tundraPref"},
     {"class":"Userfriendly", "name":"Userfriendly", "pref":"userfriendlyPref"},
+    {"class":"UnspeakableVault", "name":"Unspeakable Vault (of doom)", "pref":"unspeakablevaultPref", "new":"1"},
     {"class":"Unshelved", "name":"Unshelved", "pref":"unshelvedPref", "new":"1"},
     {"class":"VGCats", "name":"VG Cats", "pref":"vgcatsPref"},
     {"class":"VirtualShackles", "name":"Virtual Shackles", "pref":"virtualshacklesPref"},
