@@ -12,10 +12,7 @@ import com.blogspot.applications4android.comicreader.exceptions.ComicLatestExcep
 
 /**
  * 
- * This is a bit strange of a comic as the archive never has the most recent
- * one, and the title page does not navigate to older ones.
- * 
- * @author Albert
+ * @author C. Albert
  * 
  */
 public class TwoKinds extends IndexedComic {
