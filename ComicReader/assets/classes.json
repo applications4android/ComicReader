@@ -18,6 +18,7 @@
     {"class":"DarkLegacy", "name":"Dark Legacy", "pref":"darklegacyPref"},
     {"class":"DarthsandDroids", "name":"Darths & Droids", "pref":"darthsanddroidsPref"},
     {"class":"DayByDay", "name":"Day By Day", "pref":"daybydayPref"},
+    {"class":"Dieselsweeties", "name":"Diesel Sweeties", "pref":"dieselsweetiesPref", "new":"1"},
     {"class":"Dilbert", "name":"Dilbert", "pref":"dilbertPref"},
     {"class":"Dinosaur", "name":"Dinosaur Comics", "pref":"dinosaurPref"},
     {"class":"DogHouseDiaries", "name":"Doghouse Diaries", "pref":"doghousediariesPref"}, 
