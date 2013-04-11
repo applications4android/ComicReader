@@ -68,6 +68,8 @@ public class ActivityComicReader extends ComicActivity {
 	protected static FavoriteLauncher mFL = null;
 	/** prev-session activity */
 	protected static PrevSessionLauncher mPL = null;
+	/** unread activity */
+	protected static UnreadLauncher mUL = null;
 	/** web page display activity */
 	protected static ComicMainWebPageDisplay mWP = null;
 	
@@ -114,6 +116,19 @@ public class ActivityComicReader extends ComicActivity {
 		}
 	}
 
+	/** to launch the strip viewer activity in unread strips mode */
+	private class UnreadLauncher implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			Log.d(TAG, "UnreadLauncher getting triggered...");
+			Intent i = new Intent();
+			i.setClass(ActivityComicReader.this, ComicStripViewer.class);
+			i.putExtra("title", (String)v.getTag());
+			i.putExtra("mode", Comic.TYPE_UNREAD);
+			startActivityForResult(i, 0);
+		}
+	}
+	
 	/** to launch the alertdialog for opening the comic in a web page */
 	private class ComicMainWebPageDisplay implements OnLongClickListener {
 		public boolean onLongClick(View v) {
@@ -154,9 +169,11 @@ public class ActivityComicReader extends ComicActivity {
 	private static class EfficientAdapter extends BaseAdapter {
 		/** Used to inflate the layout */
 		private LayoutInflater mInflater;
-
+		private Context ctx;
+		
 		public EfficientAdapter(Context context) {
 			mInflater = LayoutInflater.from(context);
+			this.ctx =context;  
 		}
 		@Override
 		public int getCount() {
@@ -173,16 +190,36 @@ public class ActivityComicReader extends ComicActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			final ViewHolder holder;
+			
+			//Added a way to get button from settings menu
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ctx);
+	    	int mscType = Integer.parseInt(sp.getString("shortcutButton", Integer.toString(1)));
+			
 			if (convertView == null) {
 				convertView = mInflater.inflate(R.layout.main_listview_content, null);
 				holder = new ViewHolder();
 				holder.latest = (Button) convertView.findViewById(R.id.comic_item_latest);
 				holder.latest.setOnClickListener(mLL);
 				holder.latest.setOnLongClickListener(mWP);
-				holder.favorite = (Button) convertView.findViewById(R.id.comic_item_fav);
+				//Switch what shortcut button is to be shown according to the settings. 
+				switch(mscType){
+				case 1:
+				holder.favorite = (Button) convertView.findViewById(R.id.comic_item_scb);
+				holder.favorite.setText("FAV");
 				holder.favorite.setOnClickListener(mFL);
-				holder.previous = (Button) convertView.findViewById(R.id.comic_item_prev);
+				break;
+				case 2:
+				holder.previous = (Button) convertView.findViewById(R.id.comic_item_scb);
+				holder.previous.setText("PREV");
 				holder.previous.setOnClickListener(mPL);
+				break;
+				case 3:
+				holder.unread = (Button) convertView.findViewById(R.id.comic_item_scb);
+				holder.unread.setText("UnR");
+				holder.unread.setOnClickListener(mUL);	
+				break;
+				}
+								
 				convertView.setTag(holder);
 				convertView.setBackgroundColor(mColor1);
 			}
@@ -197,8 +234,22 @@ public class ActivityComicReader extends ComicActivity {
 				}
 				holder.latest.setText(txt);
 				holder.latest.setTag(cls.mName);
+				
+				//TODO: I don't know what this does but it has to be set correctly or android crashes
+				switch(mscType){
+				case 1:
 				holder.favorite.setTag(cls.mName);
+				break;
+				case 2:
 				holder.previous.setTag(cls.mName);
+				break;
+				case 3:
+				holder.unread.setTag(cls.mName);
+				break;
+				}
+				
+				
+				
 			}
 			catch(ComicNotFoundException e) { // This should never occur!
 				e.printStackTrace();
@@ -216,6 +267,8 @@ public class ActivityComicReader extends ComicActivity {
 			public Button favorite;
 			/** Latest button*/
 			public Button latest;
+			/** Unread button */
+			public Button unread;
 		}
 	}
 
@@ -232,12 +285,17 @@ public class ActivityComicReader extends ComicActivity {
 		if(mPL == null) {
 			mPL = new PrevSessionLauncher();
 		}
+		if(mUL == null) {
+			mUL = new UnreadLauncher();
+		}
 		if(mWP == null) {
 			mWP = new ComicMainWebPageDisplay();
 		}
 		GetComicsTask get_task = new GetComicsTask();
 		get_task.execute((Void[])null);
 	}
+
+
 
 	@Override
 	protected void onPause() {

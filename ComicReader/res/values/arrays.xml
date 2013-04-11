@@ -15,6 +15,20 @@
         <item>3</item>
     </string-array>
 
+    
+    <string-array name="sc_button">
+		<item>Show Favorites</item>
+        <item>Show Previous</item>
+        <item>Show Unread</item>
+    </string-array>
+   
+    <string-array name="sc_button_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>    
+    
+    
     <string-array name="freq">
         <item>1   (every 24 hrs)</item>
         <item>2   (every 12 hrs)</item>

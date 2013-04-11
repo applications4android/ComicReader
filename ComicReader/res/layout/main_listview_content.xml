@@ -19,28 +19,18 @@
 		android:textStyle="bold"
 		android:textColor="#ffffff"
 		android:gravity="center_vertical|center_horizontal" />
-   	<Button 
-   		android:gravity="center_vertical|center_horizontal"
-		android:id="@+id/comic_item_prev"
-		android:layout_width="45dp"
-		android:layout_height="wrap_content"
-		android:text="Prev"
-		android:background="@drawable/butt"
-		android:lines="3"
-		android:typeface="serif"
-		android:textStyle="bold"
-		android:textColor="#ffffff"
-		android:layout_marginRight="1dp" />
-	<Button 
+
+	<Button
+	    android:id="@+id/comic_item_scb"
+	    android:layout_width="45dp"
+	    android:layout_height="wrap_content"
+	    android:layout_marginRight="1dp"
+	    android:background="@drawable/butt"
 	    android:gravity="center_vertical|center_horizontal"
-		android:id="@+id/comic_item_fav"
-		android:layout_width="45dp"
-		android:layout_height="wrap_content"
-		android:text="Fav"
-		android:background="@drawable/butt"
-		android:lines="3"
-		android:typeface="serif"
-		android:textStyle="bold"
-		android:textColor="#ffffff"
-		android:layout_marginRight="1dp" />
+	    android:lines="3"
+	    android:text="SCut"
+	    android:textColor="#ffffff"
+	    android:textStyle="bold"
+	    android:typeface="serif" />
+
 </LinearLayout>
