@@ -20,7 +20,7 @@ import com.blogspot.applications4android.comicreader.exceptions.ComicLatestExcep
  */
 public class TwoKinds extends IndexedComic {
 	private String prevComic = "http://twokinds.keenspot.com/archive.php";
-
+	
 	@Override
 	protected String getFrontPageUrl() {
 		return "http://twokinds.keenspot.com/";
@@ -85,16 +85,38 @@ public class TwoKinds extends IndexedComic {
 	@Override
 	protected String parse(String url, BufferedReader reader, Strip strip)
 			throws IOException {
+		
+		
+		//Trying to fix the problem with getting the latest comic by checking first
+		//if the current comic url is the latest
+		String temp = url.replaceAll(".*=", "");		
+		if (mLatestId == Integer.parseInt(temp)){
+			URI u = null;
+			try {
+				u = new URI(getFrontPageUrl());
+			} catch (Exception e) {
+			} // This should never occur!!
+			try {
+				reader = Downloader.openConnection(u);
+			} catch (URISyntaxException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+
+		
+		
 		String str;
 		String final_str = null;
 		String final_title = null;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("><img src=\"http://ts");
+			int index1 = str.indexOf("><img src=\"http://t");
 			if (index1 != -1) {
 				final_str = str;
 				final_title = str;
 			}
-			int index3 = str.indexOf("\" src=\"http://c");
+			int index3 = str.indexOf("x\" src=\"http://c");
 			if (index3 != -1) {
 				final_str = str;
 				final_title = "";
