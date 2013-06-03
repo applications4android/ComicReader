@@ -132,10 +132,12 @@ public final class Strip {
 			sb.append(", \"mNextUid\":\"" + mNextUid + "\"");
 		}
 		if(mTitle != null) {
-			sb.append(", \"mTitle\":\"" + mTitle + "\"");
+            String temp = mTitle.replaceAll("\"", "\\\"");
+			sb.append(", \"mTitle\":\"" + temp + "\"");
 		}
 		if(mText != null) {
-			sb.append(", \"mText\":\"" + mText + "\"");
+		    String temp = mText.replaceAll("\"", "\\\"");
+			sb.append(", \"mText\":\"" + temp + "\"");
 		}
 		sb.append("}");
 	}
