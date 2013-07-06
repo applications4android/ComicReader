@@ -67,7 +67,7 @@ public class StickyComics extends ArchivedComic {
 		final_str = final_str.replaceAll(".*src=\"http://www.stickycomics","http://www.stickycomics");
 		final_str = final_str.replaceAll("\".*","");
 		final_itext = final_itext.replaceAll(".*title=\"","");
-		final_itext = final_itext.replaceAll("\" src.*","");
+		final_itext = final_itext.replaceAll("\" .*","");
 		final_title = final_title.replaceAll(".*<title>  ","");
 		final_title = final_title.replaceAll("</title>.*","");
 		strip.setTitle(final_title); 
