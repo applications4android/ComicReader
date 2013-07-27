@@ -3,6 +3,9 @@ package com.blogspot.applications4android.comicreader.comictypes;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.blogspot.applications4android.comicreader.core.Strip;
 
 
@@ -139,33 +142,33 @@ public class DailyGoComicsCom extends DailyComic {
         String final_title = null;
         String final_date = null;
         while((line = reader.readLine()) != null) {
-            int index1 = line.indexOf("url:document.location");
-            if (index1 != -1) {
+
+            if (line.contains("class=\"strip\"")) {
                 final_str = line;
             }
-            int index2 = line.indexOf("<title>");
-            if (index2 != -1) {
+
+            if (line.contains("<title>")) {
                 final_title = line;
             }
-            int index3 = line.indexOf("defaultDate");
-            if (index3 != -1) {
+
+            if (line.contains("defaultDate")) {
                 final_date = line;
             }
         }
-        final_str = final_str.replaceAll(".*src=\"","");
-        final_str = final_str.replaceAll("\".*","");
-        if (final_str.contains("http")) {
-        } else {
-        	final_str="http://www.gocomics.com/"+final_str;
-        }
+        final Matcher strMatcher = Pattern.compile("src=\"([^\"]*)\"").matcher(final_str);
+        if(strMatcher.find()) final_str = strMatcher.group(1);
+
     	final_title = final_title.replaceAll(".*<title> ","");
         final_title = final_title.replaceAll(" Comic Strip.*","");
         final_title = final_title.replaceAll("&amp;","&");
-        final_date = final_date.replaceAll(".*defaultDate:\"","");
+
+        final_date = final_date.replaceAll(".*defaultDate: \"","");
         final_date = final_date.replaceAll("\".*","");
         final_title=final_title+": "+final_date;
+
         strip.setTitle(final_title);
         strip.setText("-NA-");
+
         return final_str;
     }
 
