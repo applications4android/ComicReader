@@ -44,7 +44,7 @@ public class SMBC extends IndexedComic {
 		boolean found = false;
 		while((str = reader.readLine()) != null) {
 			if(found) continue;
-			int index1 = str.indexOf("refboxcode");
+			int index1 = str.indexOf("com%2F%3Fid%3D");
 			if (index1 != -1) {
 				final_str = str;
 				found = true;
@@ -55,8 +55,8 @@ public class SMBC extends IndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll(".*comics&id=","");
-		final_str = final_str.replaceAll("\".*","");
+		final_str = final_str.replaceAll(".*com%2F%3Fid%3D","");
+		final_str = final_str.replaceAll("&.*","");
 		return Integer.parseInt(final_str);
 	}
 
@@ -94,14 +94,9 @@ public class SMBC extends IndexedComic {
 		String final_str = null;
 		String final_title = null;
 		while ((str1 = reader.readLine()) != null) {
-			int index1 = str1.indexOf("buttons.gif");
-			if (index1 != -1) {
-				int index2 = str1.indexOf("/comics/");
-				while (index2 == -1) {
-					str2 = reader.readLine();
-					index2 = str2.indexOf("/comics/");
-				}
-				final_str = str2;
+			int index1 = str1.indexOf("/comics/");
+			if ( (index1 != -1) && (final_str == null) ) {
+				final_str = str1;
 			}
 			int index2 = str1.indexOf("com%2F%3Fid%3D");
 			if (index2 != -1) {

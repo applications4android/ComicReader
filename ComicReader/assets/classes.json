@@ -6,7 +6,6 @@
     {"class":"ASofterWorld", "name":"A Softer World", "pref":"asofterworldPref"},
     {"class":"AbstruseGoose", "name":"Abstruse Goose", "pref":"abstrusegoosePref"},
     {"class":"AmazingSuperpowers", "name":"Amazing Superpowers", "pref":"amazingsuperpowersPref"},
-    {"class":"Blondie", "name":"Blondie", "pref":"blondiePref"},
     {"class":"BugComic", "name":"Bug Comic", "pref":"bugcomicPref"},
     {"class":"Bunbuns", "name":"Bunbuns", "pref":"bunbunPref"},
     {"class":"Buttersafe", "name":"Buttersafe", "pref":"buttersafePref"},
@@ -86,7 +85,7 @@
     {"class":"IrregularWebComic", "name":"Irregular Web Comic", "pref":"irregularWebComicPref"},
     {"class":"PbfComics", "name":"PBF Comics", "pref":"pbfComicsPref"},
     {"class":"AgentXComics", "name":"Agent X Comics", "pref":"agentXComicsPref"},
-
+    {"class":"FastTrack", "name":"Fast Track", "pref":"fasttrackPref"},
 
     {"class":"DailyKingFeatures.Zits", "name":"Zits", "pref":"zitsComicsPref"},
     {"class":"DailyKingFeatures.BeetleBailey", "name":"Beetle Bailey", "pref":"beetleBaileyComicsPref"},
@@ -99,7 +98,7 @@
     {"class":"DailyKingFeatures.Gil", "name":"Gil", "pref":"gilComicsPref"},
     {"class":"DailyKingFeatures.ArcticCircle", "name":"Arctic Circle", "pref":"arcticCircleComicsPref"},
     {"class":"DailyKingFeatures.PajamaDiaries", "name":"Pajama Diaries", "pref":"pajamaDiariesComicsPref"},
-
+    {"class":"DailyKingFeatures.Blondie", "name":"Blondie", "pref":"blondiePref"},
 
     {"class":"GoComics.TwoCowsandaChicken", "name":"2 Cows and a Chicken", "pref":"2cowsandachickenPref"},
     {"class":"GoComics.NineChickweedLane", "name":"9 Chickweed Lane", "pref":"9chickweedlanePref"},
