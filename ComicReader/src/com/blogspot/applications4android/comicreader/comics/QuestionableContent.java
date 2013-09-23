@@ -36,7 +36,7 @@ public class QuestionableContent extends IndexedComic {
 			throw e;
 		}
 	   	final_str = final_str.replaceAll(".*comics/","");
-		final_str = final_str.replaceAll(".png.*","");
+		final_str = final_str.replaceAll(".(png|jpg|gif).*","");
 	   	int finalid = Integer.parseInt(final_str);
 	   	return finalid;
 	}
@@ -53,28 +53,26 @@ public class QuestionableContent extends IndexedComic {
 
 	@Override
 	protected boolean htmlNeeded() {
-		return false;
+		return true;
 	}
 
 	@Override
 	protected String parse(String url, BufferedReader reader, Strip strip)
 			throws IOException {
 		int id = getIdFromStripUrl(url);
-		/*
-		String url_str = url.replaceAll(".*comic=", "");
-		String url2 = "comics/" + url_str;
-		String str,final_str=null;
-		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf(url2);
+		String str, fileExt = "";
+		String search_url = "src=\"./comics/"+id;
+		while ((str = reader.readLine()) != null) {
+			int index1 = str.indexOf(search_url);
 			if (index1 != -1) {
-				final_str = str;
+				// The next 4 characters should be the extension (.png, .gif, etc)
+				fileExt = str.substring(index1 + search_url.length(),
+				                        index1 + search_url.length() + 4);
+				break;
 			}
 		}
-		final_str = final_str.replaceAll(".*comics/", "");
-		final_str = final_str.replaceAll("\".*","");
-		*/
-		strip.setTitle("Questionable Content :"+ id);
+		strip.setTitle("Questionable Content : "+id);
 		strip.setText("-NA-");
-    	return "http://www.questionablecontent.net/comics/"+id+".png";
+		return "http://www.questionablecontent.net/comics/"+id+fileExt;
 	}
 }
