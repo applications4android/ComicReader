@@ -86,6 +86,7 @@
     {"class":"PbfComics", "name":"PBF Comics", "pref":"pbfComicsPref"},
     {"class":"AgentXComics", "name":"Agent X Comics", "pref":"agentXComicsPref"},
     {"class":"FastTrack", "name":"Fast Track", "pref":"fasttrackPref"},
+    {"class":"SafeHavens", "name":"Safe Havens", "pref":"safeHavensPref"},
 
     {"class":"DailyKingFeatures.Zits", "name":"Zits", "pref":"zitsComicsPref"},
     {"class":"DailyKingFeatures.BeetleBailey", "name":"Beetle Bailey", "pref":"beetleBaileyComicsPref"},
