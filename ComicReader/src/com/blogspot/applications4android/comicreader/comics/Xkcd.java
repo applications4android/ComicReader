@@ -84,7 +84,7 @@ public class Xkcd extends IndexedComic {
     	final_title1 = final_title1.replaceAll("xkcd: ", "");
     	final_title1 = final_title1.replaceAll("</title>.*", "");
 		final_itext = final_itext.replaceAll(".*title=\"","");
-		final_itext = final_itext.replaceAll("\" alt.*","");
+		final_itext = final_itext.replaceAll("\".*","");
 		strip.setTitle("Xkcd: " + final_title1 + " : " + final_title);
 		strip.setText(final_itext);
 		return final_str; 

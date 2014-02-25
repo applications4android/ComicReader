@@ -377,6 +377,7 @@
     {"class":"GoComics.WTDuck", "name":"W.T. Duck", "pref":"wtduckPref"},
     {"class":"GoComics.ZackHill", "name":"Zack Hill", "pref":"zackhillPref"},
     {"class":"GoComics.Ziggy", "name":"Ziggy", "pref":"ziggyPref"},
+    {"class":"GoComics.SarahScribbles", "name":"Sarah's Scribbles", "pref":"sarahscribblesPref"},
 
     {"class":"GoComics.LaloAlcaraz", "name":"Editorial : Lalo Alcaraz", "pref":"laloalcarazPref"},
     {"class":"GoComics.NickAnderson", "name":"Editorial : Nick Anderson", "pref":"nickandersonPref"},
