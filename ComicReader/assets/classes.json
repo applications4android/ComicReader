@@ -87,6 +87,7 @@
     {"class":"AgentXComics", "name":"Agent X Comics", "pref":"agentXComicsPref"},
     {"class":"FastTrack", "name":"Fast Track", "pref":"fasttrackPref"},
     {"class":"SafeHavens", "name":"Safe Havens", "pref":"safeHavensPref"},
+    {"class":"ZenPencils", "name":"Zen Pencils", "pref":"zenPencilsPref"},
 
     {"class":"DailyKingFeatures.Zits", "name":"Zits", "pref":"zitsComicsPref"},
     {"class":"DailyKingFeatures.BeetleBailey", "name":"Beetle Bailey", "pref":"beetleBaileyComicsPref"},
