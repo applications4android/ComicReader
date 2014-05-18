@@ -7,6 +7,7 @@ import com.blogspot.applications4android.comicreader.comictypes.IndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
 
+//import android.util.Log;
 
 public class PhDComics extends IndexedComic {
 
@@ -68,10 +69,11 @@ public class PhDComics extends IndexedComic {
 				final_title = str;
 			}
 		}
+//		Log.d("PhDComics", "full string " + final_str);
 		final_str = final_str.replaceAll(".*href=\'","");
 		final_str = final_str.replaceAll("\'.*","");
-		final_title = final_title.replaceAll(".*name=\'title\' content=\'","");
-		final_title = final_title.replaceAll("\'.*","");
+		final_title = final_title.replaceAll(".*\"title\" content=\"","");
+		final_title = final_title.replaceAll("\".*","");
 		strip.setTitle(final_title); 
 		strip.setText("-NA-");
     	return final_str;
