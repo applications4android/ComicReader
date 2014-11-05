@@ -38,7 +38,8 @@ public class FastTrack extends DailyComic {
 
 	@Override
 	protected Calendar getTimeFromUrl(String url) {
-		url = url.replaceAll(".*comic1=", "");
+		url = url.replaceAll(".*comics/", "");
+		url = url.replaceAll("/", "");
 		String[] time = url.split("-");
 		int month = _getMonthIdFromName(time[0]);
 		int day = Integer.parseInt(time[1]);
@@ -60,15 +61,18 @@ public class FastTrack extends DailyComic {
 		String final_title = null;
 		String final_date = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("attachment-full");
+			int index1 = str.indexOf("og:image");
 			if (index1 != -1) {
 				final_str = str;
+			}
+			index1 = str.indexOf("og:title");
+			if (index1 != -1) {
 				final_date = str;
 			}
 		}
-		final_str = final_str.replaceAll(".*src=\"","");
+		final_str = final_str.replaceAll(".*content=\"","");
 		final_str = final_str.replaceAll("\".*","");
-		final_date = final_date.replaceAll(".*alt=\"","");
+		final_date = final_date.replaceAll(".*content=\"","");
 		final_date = final_date.replaceAll("\".*","");
 		final_title = "Fast Track" + ": " + final_date;
 		strip.setTitle(final_title);
@@ -78,7 +82,7 @@ public class FastTrack extends DailyComic {
 
 	@Override
 	public String getUrlFromTime(Calendar cal) {
-                String url = "http://www.onthefastrack.com/?webcomic1=";
+                String url = "http://www.onthefastrack.com/comics/";
 		url += _getMonthNameFromId(cal.get(Calendar.MONTH)) + "-" + cal.get(Calendar.DAY_OF_MONTH) + "-" + cal.get(Calendar.YEAR);
                 return url;
 	}
