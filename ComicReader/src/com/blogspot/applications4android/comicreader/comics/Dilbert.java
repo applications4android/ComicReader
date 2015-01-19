@@ -44,23 +44,18 @@ public class Dilbert extends DailyComic {
 		String str;
 		String final_str = null;
 		String final_title = null;
-		String final_date = null;
+		String final_date = url.replaceAll("http://www.dilbert.com/strips/comic", "").replaceAll("/", "");
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("border=\"0\" alt=\"Dilbert.com\"");
+			int index1 = str.indexOf("class=\"img-responsive img-comic\"");
 			if (index1 != -1) {
 				final_str = str;
 			}
-			int index3 = str.indexOf("class=\"STR_DateStrip\"");
-			if (index3 != -1) {
-				final_date = str;
-			}
 		}
-		final_str = final_str.replaceAll(".*src=\"","");
-		final_str = final_str.replaceAll("border.*","");
-		final_str = final_str.substring(0,final_str.length()-2);
-		final_date = final_date.replaceAll(".*STR_DateStrip\">","");
-		final_date = final_date.replaceAll("</div>","");
-		final_title = "Dilbert" + ": " + final_date; 
+        if(final_str != null) {
+            final_str = final_str.replaceAll(".*src=\"", "");
+            final_str = final_str.replaceAll("\" width.*", "");
+        }
+		final_title = "Dilbert" + ": " + final_date;
 		strip.setTitle(final_title); 
 		strip.setText("-NA-");
 		return final_str;
