@@ -3,12 +3,16 @@ package com.blogspot.applications4android.comicreader.comics;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import android.util.Log;
+
 import com.blogspot.applications4android.comicreader.comictypes.RandomIndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
 
 public class Cyanide extends RandomIndexedComic {
 
+	private static final String Cyanide = "Cyanide";
+	
 	@Override
 	protected int getFirstId() {
 		return 15;
@@ -26,10 +30,11 @@ public class Cyanide extends RandomIndexedComic {
 			String str;
 			String final_next = null;
 			while ((str = br.readLine()) != null) {
-				if(str.indexOf("case 39") != -1) {
-					final_next = br.readLine();
+				if(str.indexOf("/\" class=\"next-comic\"") != -1) {
+					final_next = str;
 				}
 			}
+			Log.d(Cyanide, "In getNextStripId, final_next = "+final_next);
 			setNextId(parseForNextId(final_next, getLatestId()));
 		}
 		catch(Exception e) {
@@ -45,10 +50,11 @@ public class Cyanide extends RandomIndexedComic {
 			String str;
 			String final_prev = null;
 			while ((str = br.readLine()) != null) {
-				if(str.indexOf("case 37") != -1) {
-					final_prev = br.readLine();
+				if(str.indexOf("/\" class=\"previous-comic\"") != -1) {
+					final_prev = str;
 				}
 			}
+			Log.d(Cyanide, "In getPreviousStripId, final_prev = "+final_prev);
 			setPreviousId(parseForPrevId(final_prev, getFirstId()));
 		}
 		catch(Exception e) {
@@ -56,13 +62,13 @@ public class Cyanide extends RandomIndexedComic {
 		}
 		return id;
 	}
-
+	
 	@Override
 	protected int parseForLatestId(BufferedReader reader) throws ComicLatestException, IOException {
 		String str;
 		String final_str = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("<title>Cyanide & Happiness");
+			int index1 = str.indexOf("explosm.net%2Fcomics");
 			if (index1 != -1) {
 				final_str = str;
 			}
@@ -72,30 +78,33 @@ public class Cyanide extends RandomIndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll(".*Happiness #","");
-		final_str = final_str.replaceAll(" - Explosm.*","");
+		final_str = final_str.replaceAll(".*comics%2F","");
+		final_str = final_str.replaceAll("%2F.*","");
+		Log.d(Cyanide, "In parseForLatestId, final_str = "+final_str);
 		return Integer.parseInt(final_str);
 	}
 
 	@Override
 	public String getStripUrlFromId(int num) {
+		Log.d(Cyanide, "In getStripUrlFromId, num = "+num);
 		return "http://www.explosm.net/comics/" + num;
 	}
 
 	@Override
 	protected int getIdFromStripUrl(String url) {
 		String str = url.replaceAll("http://www.explosm.net/comics/", "");
+		Log.d(Cyanide, "In getIdFromStripUrl, str = "+str);
 		return Integer.parseInt(str);
 	}
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://www.explosm.net/comics/";
+		return "http://explosm.net";
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://www.explosm.net/";
+		return "http://explosm.net";
 	}
 
 	@Override
@@ -118,23 +127,27 @@ public class Cyanide extends RandomIndexedComic {
 			if(!comic_found) {
 				continue;
 			}
-			if(str.indexOf("Cyanide and Happiness, a daily webcomic") != -1) {
+			if(str.indexOf("\"og:image\"") != -1) {
 				final_str = str;
 			}
-			if(str.indexOf("<title>Cyanide & Happiness ") != -1) {
+			if(str.indexOf("\"og:url\"") != -1) {
 				final_title = str;
 			}
-			if(str.indexOf("case 39") != -1) {
-				final_next = reader.readLine();
+			if(str.indexOf("/\" class=\"next-comic\"") != -1) {
+				final_next = str;
 			}
-			if(str.indexOf("case 37") != -1) {
-				final_prev = reader.readLine();
+			if(str.indexOf("/\" class=\"previous-comic\"") != -1) {
+				final_prev = str;
 			}
 		}
-		final_str = final_str.replaceAll(".*Cyanide and Happiness, a daily webcomic\" src=\"","");
+		Log.d(Cyanide, "In parse, final_str = "+final_str);		
+		Log.d(Cyanide, "In parse, final_title = "+final_title);		
+		Log.d(Cyanide, "In parse, final_next = "+final_next);		
+		Log.d(Cyanide, "In parse, final_prev = "+final_prev);		
+		final_str = final_str.replaceAll(".*og:image\" content=\"","");
 		final_str = final_str.replaceAll("\".*","");
-		final_title = final_title.replaceAll(".*<title>","");
-		final_title = final_title.replaceAll(" - Explosm.*","");
+		final_title = final_title.replaceAll(".*net/comics/","");
+		final_title = final_title.replaceAll("/\".*","");
 		strip.setTitle(final_title);
 		strip.setText("-NA-");
 		// set the next and previous comic IDs from the current url's html data
