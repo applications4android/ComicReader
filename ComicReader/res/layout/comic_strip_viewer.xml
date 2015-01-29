@@ -16,54 +16,5 @@
    		android:background="@drawable/reset"
    		android:textStyle="bold"
    		android:id="@+id/reset_button" />
-    <LinearLayout
-    	android:id="@+id/view_control"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-    	android:layout_alignParentRight="true"
-    	android:layout_alignParentBottom="true" >
- 	   	<Button
-    		android:layout_marginRight="2dp"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:background="@drawable/left"
-    		android:id="@+id/strip_prev" />
- 	   	<Button
-    		android:layout_marginRight="2dp"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:background="@drawable/text"
-    		android:id="@+id/image_text" />
-    	<Button
-    		android:layout_marginRight="2dp"	
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:id="@+id/strip_favorite"
-    		android:background="@drawable/star_nonfav"
-    		android:text=" " />
-    	<Button
-    		android:layout_marginRight="2dp"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:id="@+id/strip_share"
-    		android:background="@drawable/share" />
-	    <Button
-	        android:layout_marginRight="2dp"
-    	    android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/zoom_out_button"
-	        android:background="@drawable/minus" />
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:id="@+id/zoom_in_button"
-	        android:background="@drawable/plus" />
- 	   	<Button
-    		android:layout_marginRight="2dp"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-    		android:background="@drawable/right"
-    		android:id="@+id/strip_next" />
-	</LinearLayout>
+    <include layout="@layout/view_control" />
 </RelativeLayout>
