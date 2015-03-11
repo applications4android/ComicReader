@@ -3,6 +3,7 @@ package com.blogspot.applications4android.comicreader.comics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Calendar;
+//import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.comictypes.DailyComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
@@ -59,8 +60,25 @@ public class PennyArcade extends DailyComic {
 
 	@Override
 	public String getUrlFromTime(Calendar cal) {
+/* Strips are only published on Monday, Wednesday and Friday so make sure
+   we land on one of those days by backing up. */
+		if ( 	cal.get(cal.DAY_OF_WEEK)==cal.TUESDAY ||
+			cal.get(cal.DAY_OF_WEEK)==cal.THURSDAY ||
+			cal.get(cal.DAY_OF_WEEK)==cal.SATURDAY )
+		{
+                        cal.add(Calendar.DAY_OF_MONTH, -1);
+		}
+		if ( 	cal.get(cal.DAY_OF_WEEK)==cal.SUNDAY )
+		{
+                        cal.add(Calendar.DAY_OF_MONTH, -2);
+		}
+                addException(cal, -1);
+//Log.d("Penny_Arcade", String.format("XXXURL/%04d/%02d/%02d",
+//	cal.get(Calendar.YEAR),
+//	cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
+
 		return String.format("http://www.penny-arcade.com/comic/%04d/%02d/%02d/",
-				cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+			cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
 	}
 
 	@Override
@@ -100,13 +118,19 @@ public class PennyArcade extends DailyComic {
 		}
 		final_str = final_str.replaceAll(".*src=\"","");
 		final_str = final_str.replaceAll("\".*","");
+//Log.d("Penny_Arcade", "final_string " + final_str);
 		final_date = final_date.replaceAll(".*alt=\"","");
 		final_date = final_date.replaceAll("\".*","");
-		curr_date = curr_date.replaceAll(".*.com", "");
-		curr_date = curr_date.replaceAll("\".*", "");
-		curr_date = "http://penny-arcade.com/comic"+curr_date;		
+//Log.d("Penny_Arcade", "final_date " + final_date);
+
+//		curr_date = curr_date.replaceAll(".*.com", "");
+//		curr_date = curr_date.replaceAll("\".*", "");
+//		curr_date = "http://penny-arcade.com/comic"+curr_date;	
+//Log.d("Penny_Arcade", "curr_date " + curr_date);
+
 		final_title = "Penny Arcade" + ": " + final_date;
-		strip.setTitle(final_title); 
+//Log.d("Penny_Arcade", "final_title " + final_title);
+		strip.setTitle(final_title);
 		strip.setText("-NA-");
 		return final_str;
 	}
