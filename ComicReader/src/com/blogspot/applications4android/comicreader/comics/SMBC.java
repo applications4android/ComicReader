@@ -3,11 +3,11 @@ package com.blogspot.applications4android.comicreader.comics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
+//import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.comictypes.IndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
-
 
 
 public class SMBC extends IndexedComic {
@@ -29,12 +29,12 @@ public class SMBC extends IndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://www.smbc-comics.com/index.php";
+		return "http://www.smbc-comics.com/";
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://www.smbc-comics.com/index.php";
+		return "http://www.smbc-comics.com/";
 	}
 
 	@Override
@@ -44,19 +44,21 @@ public class SMBC extends IndexedComic {
 		boolean found = false;
 		while((str = reader.readLine()) != null) {
 			if(found) continue;
-			int index1 = str.indexOf("com%2F%3Fid%3D");
+			int index1 = str.indexOf("twittershare");
 			if (index1 != -1) {
 				final_str = str;
 				found = true;
 			}
 		}
+//Log.d("SMBC", "i final_string " + final_str);
 		if(final_str == null) {
 			String msg = "Failed to get the latest id for "+this.getClass().getSimpleName();
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll(".*com%2F%3Fid%3D","");
 		final_str = final_str.replaceAll("&.*","");
+		final_str = final_str.replaceAll(".*id=","");
+//Log.d("SMBC", "i final_string " + final_str);
 		return Integer.parseInt(final_str);
 	}
 
@@ -90,25 +92,27 @@ public class SMBC extends IndexedComic {
 	protected String parse(String url, BufferedReader reader, Strip strip)
 			throws IOException {
 		String str1;
-		String str2 = null;
 		String final_str = null;
+		String image_url = null;
 		String final_title = null;
+		String final_index = null;
 		while ((str1 = reader.readLine()) != null) {
-			int index1 = str1.indexOf("/comics/");
+			int index1 = str1.indexOf("comics/");
 			if ( (index1 != -1) && (final_str == null) ) {
 				final_str = str1;
 			}
-			int index2 = str1.indexOf("com%2F%3Fid%3D");
-			if (index2 != -1) {
-				final_title = str1;
-			}
 		}
-		final_str = final_str.replaceAll(".*src=\'","");
-		final_str = final_str.replaceAll("\'.*","");
-		final_title = final_title.replaceAll(".*com%2F%3Fid%3D","");
-		final_title = final_title.replaceAll("&.*","");
-		strip.setTitle("Saturday Morning Breakfast Cereal: "+final_title); 
+//Log.d("SMBC", "final_string " + final_str);
+		image_url = final_str.replaceAll(".*src=\"","http://www.smbc-comics.com/");
+		image_url = image_url.replaceAll("\".*","");
+//Log.d("SMBC", "image_url " + image_url);
+		final_title = final_str.replaceAll(".*title=\"","");
+		final_title = final_title.replaceAll("\".*","");
+//Log.d("SMBC", "final_title " + final_title);
+		final_index=url.replaceAll(".*=","");
+//Log.d("SMBC", "final_index " + final_index);
+		strip.setTitle("SMBC: "+final_index+" : "+final_title);
 		strip.setText("-NA-");
-		return final_str;
+		return image_url;
 	}
 }
