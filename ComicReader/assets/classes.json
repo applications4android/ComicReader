@@ -21,7 +21,7 @@
     {"class":"Dieselsweeties", "name":"Diesel Sweeties", "pref":"dieselsweetiesPref", "new":"1"},
     {"class":"Dilbert", "name":"Dilbert", "pref":"dilbertPref"},
     {"class":"Dinosaur", "name":"Dinosaur Comics", "pref":"dinosaurPref"},
-    {"class":"DogHouseDiaries", "name":"Doghouse Diaries", "pref":"doghousediariesPref"}, 
+    {"class":"DogHouseDiaries", "name":"Doghouse Diaries", "pref":"doghousediariesPref"},
     {"class":"DumbingofAge", "name":"Dumbing of Age", "pref":"dumbingofagePref"},
     {"class":"EdmundFinney", "name":"Edmund Finney's Quest to Find the Meaning of Life", "pref":"edmundfinneyPref", "new":"1"},
     {"class":"EerieCuties","name":"Eerie Cuties", "pref":"eeriecutiesPref", "new":"1"},
@@ -89,7 +89,6 @@
     {"class":"AgentXComics", "name":"Agent X Comics", "pref":"agentXComicsPref"},
     {"class":"FastTrack", "name":"Fast Track", "pref":"fasttrackPref"},
     {"class":"SafeHavens", "name":"Safe Havens", "pref":"safeHavensPref"},
-    {"class":"ZenPencils", "name":"Zen Pencils", "pref":"zenPencilsPref"},
 
     {"class":"DailyKingFeatures.Zits", "name":"Zits", "pref":"zitsComicsPref"},
     {"class":"DailyKingFeatures.BeetleBailey", "name":"Beetle Bailey", "pref":"beetleBaileyComicsPref"},
@@ -378,6 +377,7 @@
     {"class":"GoComics.WorkingItOut", "name":"Working It Out", "pref":"workingitoutPref"},
     {"class":"GoComics.WTDuck", "name":"W.T. Duck", "pref":"wtduckPref"},
     {"class":"GoComics.ZackHill", "name":"Zack Hill", "pref":"zackhillPref"},
+    {"class":"GoComics.ZenPencils", "name":"Zen Pencils", "pref":"zenPencilsPref"},
     {"class":"GoComics.Ziggy", "name":"Ziggy", "pref":"ziggyPref"},
     {"class":"GoComics.SarahScribbles", "name":"Sarah's Scribbles", "pref":"sarahscribblesPref"},
 
