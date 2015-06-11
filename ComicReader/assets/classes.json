@@ -102,6 +102,7 @@
     {"class":"DailyKingFeatures.ArcticCircle", "name":"Arctic Circle", "pref":"arcticCircleComicsPref"},
     {"class":"DailyKingFeatures.PajamaDiaries", "name":"Pajama Diaries", "pref":"pajamaDiariesComicsPref"},
     {"class":"DailyKingFeatures.Blondie", "name":"Blondie", "pref":"blondiePref"},
+    {"class":"DailyKingFeatures.Hagar", "name":"Hagar the Horrible", "pref":"hagarComicsPref"},
 
     {"class":"GoComics.TwoCowsandaChicken", "name":"2 Cows and a Chicken", "pref":"2cowsandachickenPref"},
     {"class":"GoComics.NineChickweedLane", "name":"9 Chickweed Lane", "pref":"9chickweedlanePref"},
