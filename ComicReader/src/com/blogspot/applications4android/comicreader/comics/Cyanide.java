@@ -99,7 +99,7 @@ public class Cyanide extends RandomIndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://explosm.net";
+		return "http://explosm.net/comics/latest/";
 	}
 
 	@Override
