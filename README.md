@@ -23,5 +23,9 @@ Given below is the organization of this folder:
 ### Project namespace:
 com.blogspot.applications4android.comicreader
 
+### License
+This project is released under Apache License 2.0. More details can be found in the
+following link: http://www.apache.org/licenses/LICENSE-2.0
+
 ### Contact:
 applications4android@gmail.com
