@@ -56,7 +56,7 @@ public class SMBC extends IndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll("&.*","");
+		final_str = final_str.replaceAll("&text=.*","");
 		final_str = final_str.replaceAll(".*id=","");
 //Log.d("SMBC", "i final_string " + final_str);
 		return Integer.parseInt(final_str);
@@ -111,8 +111,9 @@ public class SMBC extends IndexedComic {
 //Log.d("SMBC", "final_title " + final_title);
 		final_index=url.replaceAll(".*=","");
 //Log.d("SMBC", "final_index " + final_index);
-		strip.setTitle("SMBC: "+final_index+" : "+final_title);
+		strip.setTitle("SMBC: "+final_index+": "+final_title);
 		strip.setText("-NA-");
 		return image_url;
 	}
+
 }
