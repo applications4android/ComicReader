@@ -2,6 +2,10 @@ package com.blogspot.applications4android.comicreader.comics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 //import android.util.Log;
 
@@ -41,24 +45,23 @@ public class SMBC extends IndexedComic {
 	protected int parseForLatestId(BufferedReader reader) throws IOException, ComicLatestException {
 		String str;
 		String final_str = null;
-		boolean found = false;
 		while((str = reader.readLine()) != null) {
-			if(found) continue;
-			int index1 = str.indexOf("twittershare");
+			int index1 = str.indexOf("buythisimg");
 			if (index1 != -1) {
 				final_str = str;
-				found = true;
+				break;
 			}
 		}
-//Log.d("SMBC", "i final_string " + final_str);
+//Log.d("SMBC", "final_string " + final_str);
 		if(final_str == null) {
 			String msg = "Failed to get the latest id for "+this.getClass().getSimpleName();
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll("&text=.*","");
-		final_str = final_str.replaceAll(".*id=","");
-//Log.d("SMBC", "i final_string " + final_str);
+		final_str = final_str.replaceAll(".*id%3D","");
+//Log.d("SMBC", "final_str " + final_str);
+		final_str = final_str.replaceAll("\".*","");
+//Log.d("SMBC", "final_str " + final_str);
 		return Integer.parseInt(final_str);
 	}
 
@@ -103,16 +106,22 @@ public class SMBC extends IndexedComic {
 			}
 		}
 //Log.d("SMBC", "final_string " + final_str);
-		image_url = final_str.replaceAll(".*src=\"","http://www.smbc-comics.com/");
-		image_url = image_url.replaceAll("\".*","");
+		int index1 = final_str.indexOf(".png\"");
+		if (index1 != -1) {
+		   image_url = final_str.replaceAll(".png\".*",".png");
+		} else {
+// Early images were GIFs.
+		   image_url = final_str.replaceAll(".gif\".*",".gif");
+		}
+		image_url = image_url.replaceAll(".*src=\"","");
 //Log.d("SMBC", "image_url " + image_url);
 		final_title = final_str.replaceAll(".*title=\"","");
 		final_title = final_title.replaceAll("\".*","");
 //Log.d("SMBC", "final_title " + final_title);
 		final_index=url.replaceAll(".*=","");
 //Log.d("SMBC", "final_index " + final_index);
-		strip.setTitle("SMBC: "+final_index+": "+final_title);
-		strip.setText("-NA-");
+		strip.setTitle("SMBC: "+final_index);
+		strip.setText(final_title);
 		return image_url;
 	}
 

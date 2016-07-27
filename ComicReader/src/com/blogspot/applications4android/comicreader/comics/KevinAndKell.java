@@ -42,7 +42,7 @@ public class KevinAndKell extends DailyComic {
 	@Override
 	public String getUrlFromTime(Calendar cal) {
 		String surl =  String.format("http://www.kevinandkell.com/%4d/kk%02d%02d.html",
-				 cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+		 cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
 		
 		return surl;
 	}
@@ -58,13 +58,15 @@ public class KevinAndKell extends DailyComic {
 
 		//Get URL
 		Calendar cal = getTimeFromUrl(url);
-		String surl = String.format("http://www.kevinandkell.com/%4d/strips/kk%4d%02d%02d.gif",
-									cal.get(Calendar.YEAR), cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+//http://www.kevinandkell.com/2016/strips/kk20160713.jpg
+		String surl = String.format("http://www.kevinandkell.com/%4d/strips/kk%4d%02d%02d.jpg",
+		cal.get(Calendar.YEAR), cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+
 		//Get Title
 		String str;
 		String final_title = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("\"caption\"");
+			int index1 = str.indexOf("comicstripCaption");
 			if (index1 != -1) {
 				final_title = str;
 			}
