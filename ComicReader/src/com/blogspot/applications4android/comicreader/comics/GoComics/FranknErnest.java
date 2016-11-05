@@ -6,7 +6,7 @@ import com.blogspot.applications4android.comicreader.comictypes.DailyGoComicsCom
 public class FranknErnest extends DailyGoComicsCom {
 	public FranknErnest() {
 		super();
-		mComicName = "frankandernest";
+		mComicName = "frank-and-ernest";
 		mFirstCal = Calendar.getInstance();
 		mFirstCal.set(2000, 6, 2);
 	}
