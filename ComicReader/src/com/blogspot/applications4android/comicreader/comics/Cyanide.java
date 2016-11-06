@@ -133,10 +133,10 @@ public class Cyanide extends RandomIndexedComic {
 			if(str.indexOf("\"og:url\"") != -1) {
 				final_title = str;
 			}
-			if(str.indexOf("/\" class=\"next-comic\"") != -1) {
+			if(str.indexOf("/\" class=\"next-comic") != -1) {
 				final_next = str;
 			}
-			if(str.indexOf("/\" class=\"previous-comic\"") != -1) {
+			if(str.indexOf("/\" class=\"previous-comic") != -1) {
 				final_prev = str;
 			}
 		}
