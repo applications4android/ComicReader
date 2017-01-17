@@ -10,6 +10,8 @@ import com.blogspot.applications4android.comicreader.core.Strip;
 
 /**
  * Penny Arcade comics
+ * NOTE: this fails with the android emulator running at APT=10, but works
+ * OK with the current OS on a real phone.
  */
 public class PennyArcade extends DailyComic {
 
@@ -22,7 +24,7 @@ public class PennyArcade extends DailyComic {
 	}
 
 	public String getComicWebPageUrl() {
-		return "http://www.penny-arcade.com/comic/";
+		return "https://www.penny-arcade.com/comic/";
 	}
 
 	protected Calendar getLatestCalendar() {
@@ -60,6 +62,7 @@ public class PennyArcade extends DailyComic {
 
 	@Override
 	public String getUrlFromTime(Calendar cal) {
+   	String str_url;
 /* Strips are only published on Monday, Wednesday and Friday so make sure
    we land on one of those days by backing up. */
 		if ( 	cal.get(cal.DAY_OF_WEEK)==cal.TUESDAY ||
@@ -72,13 +75,12 @@ public class PennyArcade extends DailyComic {
 		{
                         cal.add(Calendar.DAY_OF_MONTH, -2);
 		}
-                addException(cal, -1);
-//Log.d("Penny_Arcade", String.format("XXXURL/%04d/%02d/%02d",
-//	cal.get(Calendar.YEAR),
-//	cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
+        addException(cal, -1);
+	str_url=String.format("https://www.penny-arcade.com/comic/%04d/%02d/%02d/",
+	cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+//Log.d("Penny_Arcade", str_url);
 
-		return String.format("http://www.penny-arcade.com/comic/%04d/%02d/%02d/",
-			cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH));
+	return str_url;
 	}
 
 	@Override
@@ -92,43 +94,24 @@ public class PennyArcade extends DailyComic {
 		String str;
 		String final_str = null;
 		String final_title = null;
-		String final_date = null;
-		String curr_date = null;
+//Log.d("Penny_Arcade", "in parse");
 		while((str = reader.readLine()) != null) {
-			// one such server
-			int index1 = str.indexOf("http://art.penny-arcade.com/photos");
-			int index3 = str.indexOf("http://penny-arcade.smugmug.com/photos");
-			if (index1 != -1 || index3 != -1) {
+			int index1 = str.indexOf("photos.smugmug.com");
+			if (index1 != -1 ) {
 				final_str = str;
-				final_date = str;
 			}
-			else {
-				// second such server
-				index1 = str.indexOf("http://www.penny-arcade.com/images");
-				if (index1 != -1) {
-					final_str = str;
-					final_date = str;
-				}
-			}
-			int index2 = str.indexOf("btnNews btn");
-			if (index2 != -1) {
-				curr_date = str;
+			int index2 = str.indexOf("<h2>");
+			if (index2 != -1 ) {
+				final_title = str;
 			}
 			
 		}
 		final_str = final_str.replaceAll(".*src=\"","");
 		final_str = final_str.replaceAll("\".*","");
-//Log.d("Penny_Arcade", "final_string " + final_str);
-		final_date = final_date.replaceAll(".*alt=\"","");
-		final_date = final_date.replaceAll("\".*","");
-//Log.d("Penny_Arcade", "final_date " + final_date);
+//Log.d("Penny_Arcade", "final_str " + final_str);
 
-//		curr_date = curr_date.replaceAll(".*.com", "");
-//		curr_date = curr_date.replaceAll("\".*", "");
-//		curr_date = "http://penny-arcade.com/comic"+curr_date;	
-//Log.d("Penny_Arcade", "curr_date " + curr_date);
-
-		final_title = "Penny Arcade" + ": " + final_date;
+		final_title = final_title.replaceAll(".*<h2>","Penny Arcade: ");
+		final_title = final_title.replaceAll("</h2>.*","");
 //Log.d("Penny_Arcade", "final_title " + final_title);
 		strip.setTitle(final_title);
 		strip.setText("-NA-");
