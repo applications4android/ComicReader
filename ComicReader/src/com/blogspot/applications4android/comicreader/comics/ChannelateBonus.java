@@ -1,13 +1,13 @@
 package com.blogspot.applications4android.comicreader.comics;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import com.blogspot.applications4android.comicreader.comictypes.ArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class Channelate extends ArchivedComic {
+public class ChannelateBonus extends ArchivedComic {
 
 	@Override
 	public String getComicWebPageUrl() {
@@ -26,6 +26,11 @@ public class Channelate extends ArchivedComic {
 				str_temp = str;
 				str_temp=str_temp.replaceAll(".*href=\"","");
 				str_temp=str_temp.replaceAll("\".*","");
+                str_temp=str_temp.replaceAll(".*com/","");
+                str_temp=str_temp.replaceFirst("/","");
+                str_temp=str_temp.replaceFirst("/","");
+                str_temp=str_temp.replaceAll("/.*","/");
+                str_temp="http://www.channelate.com/extra-panel/"+str_temp;
 				m_com.add(str_temp);
 				idx++;
 			}
@@ -58,17 +63,18 @@ public class Channelate extends ArchivedComic {
 		String final_str = null;
 		String final_title = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("class=\"comicpane\"");
+			int index1 = str.indexOf("extrapanelimage");
 			if (index1 != -1) {
 				final_str = str;
 				final_title = str;
 			}
 		}
 		final_str = final_str.replaceAll(".*src=\"","http:");
-		final_str = final_str.replaceAll("\".*","");
-		final_title = final_title.replaceAll(".*title=\"","");
-		final_title = final_title.replaceAll("\".*","");
-		strip.setTitle("Channelate: "+final_title); 
+        final_str = final_str.replaceAll("\".*","");
+        final_title = final_title.replaceAll(".*extrapanels/","");
+        final_title = final_title.replaceAll("\".*","");
+        final_title = final_title.replaceAll("-EX.png","");
+		strip.setTitle("Channelate Bonus: "+final_title);
 		strip.setText("-NA-");
 	    return final_str;
 	}

@@ -83,6 +83,7 @@
     {"class":"Yafgc", "name":"Yet Another Fantasy Gamer Comic", "pref":"yafgcPref"},
     {"class":"Zap", "name":"Zap!", "pref":"zapPref"},
     {"class":"Channelate", "name":"Channelate", "pref":"channelatePref"},
+    {"class":"ChannelateBonus", "name":"Channelate Bonus", "pref":"channelateBonusPref"},
     {"class":"ExtraOrdinary", "name":"Extra Ordinary", "pref":"extraOrdinaryPref"},
     {"class":"IrregularWebComic", "name":"Irregular Web Comic", "pref":"irregularWebComicPref"},
     {"class":"PbfComics", "name":"PBF Comics", "pref":"pbfComicsPref"},
