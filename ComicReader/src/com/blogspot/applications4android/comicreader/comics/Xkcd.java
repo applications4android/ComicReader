@@ -63,9 +63,9 @@ public class Xkcd extends IndexedComic {
 		String str_title = null;
 		String str_itext = null;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("http://imgs.xkcd.com/comics");
+			int index1 = str.indexOf("imgs.xkcd.com/comics");
 			if (index1 != -1) {
-				image_url = str.replaceAll(".*http:","http:");
+				image_url = str.replaceAll(".*http","http");
 			}
 			int index2 = str.indexOf("src=\"//imgs.xkcd.com/comics");
 			if (index2 != -1) {
