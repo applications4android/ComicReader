@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.blogspot.applications4android.comicreader.comictypes.IndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
+//import android.util.Log;
 
 
 public class ExtraOrdinary extends IndexedComic {
@@ -25,9 +26,10 @@ public class ExtraOrdinary extends IndexedComic {
 		String str;
 		String final_str = null;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("REFRESH");
+			int index1 = str.indexOf("og:url");
 			if (index1 != -1) {
 				final_str = str;
+				break;
 			}
 		}
 		if(final_str == null) {
@@ -35,14 +37,21 @@ public class ExtraOrdinary extends IndexedComic {
 			ComicLatestException e = new ComicLatestException(msg);
 			throw e;
 		}
-		final_str = final_str.replaceAll(".*url=http://www.exocomics.com/","");
+		final_str = final_str.replaceAll(".*content=\"http://www.exocomics.com/","");
 		final_str = final_str.replaceAll("\".*","");
+//Log.d("ExtraOrdinary", "final_string " + final_str);
 	   	return Integer.parseInt(final_str);
 	}
 
 	@Override
 	public String getStripUrlFromId(int num) {
-		return "http://www.exocomics.com/" + num;
+		String str_url;
+		if ( num<10 ) {
+		   str_url="http://www.exocomics.com/0" + num;
+		} else {
+		   str_url="http://www.exocomics.com/" + num;
+		}
+		return str_url;
 	}
 
 	@Override
@@ -59,20 +68,34 @@ public class ExtraOrdinary extends IndexedComic {
 	protected String parse(String url, BufferedReader reader, Strip strip)
 			throws IOException {
 		String str;
-		int id = getIdFromStripUrl(url);
-		String final_str = "http://www.exocomics.com/comics/comics/" + id + ".jpg";
-		String final_title = "Extra Ordinary: " + id;
+		String image_url = null;
+		String final_id = null;
 		String final_text = null;
+		int ifound=0;
 		while ((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("class=\"comic-item");
-			if (index1 != -1) {
+			if ( ifound==0 && str.indexOf("style-main-comic") != -1) {
+			    ifound=1;
+			}
+			if (ifound != 0 ) {
+			    if (str.indexOf("src=") != -1) {
+				image_url= str;
+			    } else if ( str.indexOf("alt=") != -1) {
+				final_id = str;
+			    } else if ( str.indexOf("title=") != -1) {
 				final_text = str;
+			    } else if (str.indexOf("/>") != -1) {
+				break;
+			    }
 			}
 		}
-		final_text = final_text.replaceAll(".*title=\"","");
-		final_text = final_text.replaceAll("\".*","");
-		strip.setTitle(final_title); 
+//Log.d("ExtraOrdinary", "final_text " + final_text);
+		final_text=final_text.replaceAll(".*\"(.*)\".*","$1");
 		strip.setText(final_text);
-    	return final_str;
+		final_id=final_id.replaceAll(".*\"(.*)\".*","$1");
+		String final_title = "Extra Ordinary: "+final_id;
+		strip.setTitle(final_title);
+		image_url=image_url.replaceAll(".*\"(.*)\".*","$1");
+//Log.d("ExtraOrdinary", "image_url " + image_url);
+    	return image_url;
 	}
 }

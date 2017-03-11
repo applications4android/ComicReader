@@ -4,7 +4,6 @@
   [
     {"class":"AGirlandHerFed", "name":"A Girl and Her Fed", "pref":"agirlandherfedPref"},
     {"class":"ASofterWorld", "name":"A Softer World", "pref":"asofterworldPref"},
-    {"class":"AbstruseGoose", "name":"Abstruse Goose", "pref":"abstrusegoosePref"},
     {"class":"AmazingSuperpowers", "name":"Amazing Superpowers", "pref":"amazingsuperpowersPref"},
     {"class":"Bizarro", "name":"Bizarro", "pref":"bizarroPref"},
     {"class":"BugComic", "name":"Bug Comic", "pref":"bugcomicPref"},
@@ -81,7 +80,6 @@
     {"class":"Wumo", "name":"Wumo", "pref":"wumoPref"},
     {"class":"Xkcd", "name":"Xkcd", "pref":"xkcdPref"},
     {"class":"Yafgc", "name":"Yet Another Fantasy Gamer Comic", "pref":"yafgcPref"},
-    {"class":"Zap", "name":"Zap!", "pref":"zapPref"},
     {"class":"Channelate", "name":"Channelate", "pref":"channelatePref"},
     {"class":"ChannelateBonus", "name":"Channelate Bonus", "pref":"channelateBonusPref"},
     {"class":"ExtraOrdinary", "name":"Extra Ordinary", "pref":"extraOrdinaryPref"},

@@ -101,19 +101,23 @@ public class SMBC extends IndexedComic {
 		String final_index = null;
 		while ((str1 = reader.readLine()) != null) {
 			int index1 = str1.indexOf("comics/");
-			if ( (index1 != -1) && (final_str == null) ) {
+			if ( index1 != -1 ) {
 				final_str = str1;
+				break;
 			}
 		}
 //Log.d("SMBC", "final_string " + final_str);
-		int index1 = final_str.indexOf(".png\"");
+		int index1 = final_str.indexOf(".gif\"");
 		if (index1 != -1) {
-		   image_url = final_str.replaceAll(".png\".*",".png");
-		} else {
 // Early images were GIFs.
-		   image_url = final_str.replaceAll(".gif\".*",".gif");
+		   image_url = final_str.replaceAll(".*\"(.*/comics/.*.gif).*","$1");
+		} else {
+		   image_url = final_str.replaceAll(".*\"(.*/comics/.*.png).*","$1");
 		}
 		image_url = image_url.replaceAll(".*src=\"","");
+		image_url = image_url.replaceAll(" ","%20");
+		image_url = image_url.replaceAll("\\(","%28");
+		image_url = image_url.replaceAll("\\)","%29");
 //Log.d("SMBC", "image_url " + image_url);
 		final_title = final_str.replaceAll(".*title=\"","");
 		final_title = final_title.replaceAll("\".*","");
