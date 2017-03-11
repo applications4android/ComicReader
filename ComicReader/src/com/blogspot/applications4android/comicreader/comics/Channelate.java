@@ -65,6 +65,7 @@ public class Channelate extends ArchivedComic {
 			}
 		}
 		final_str = final_str.replaceAll(".*src=\"","http:");
+		final_str = final_str.replaceAll("http:http","http");
 		final_str = final_str.replaceAll("\".*","");
 		final_title = final_title.replaceAll(".*title=\"","");
 		final_title = final_title.replaceAll("\".*","");

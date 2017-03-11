@@ -156,10 +156,10 @@ public class DailyGoComicsCom extends DailyComic {
             }
         }
     	final_str = final_str.replaceAll(".*=\"","");
-        final_str = final_str.replaceAll("\"/*","");
+        final_str = final_str.replaceAll("\".*","");
 
     	final_title = final_title.replaceAll(".*=\"","");
-        final_title = final_title.replaceAll("\"/*","");
+        final_title = final_title.replaceAll("\".*","");
         final_title = final_title.replaceAll("&amp;","&");
 
         final_date = final_date.replaceAll(".*=\"","");

@@ -70,6 +70,7 @@ public class ChannelateBonus extends ArchivedComic {
 			}
 		}
 		final_str = final_str.replaceAll(".*src=\"","http:");
+		final_str = final_str.replaceAll("http:http","http");
         final_str = final_str.replaceAll("\".*","");
         final_title = final_title.replaceAll(".*extrapanels/","");
         final_title = final_title.replaceAll("\".*","");
