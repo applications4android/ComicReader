@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+//import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.core.Strip;
 
@@ -143,23 +144,24 @@ public class DailyGoComicsCom extends DailyComic {
         String final_date = null;
         while((line = reader.readLine()) != null) {
 
-            if (line.contains("data-image")) {
+            if (line.contains("data-image=")) {
                 final_str = line;
             }
 
-            if (line.contains("data-title")) {
+            if (line.contains("data-title=")) {
                 final_title = line;
             }
 
-            if (line.contains("data-date")) {
+            if (line.contains("data-date=")) {
                 final_date = line;
             }
         }
+//Log.d("GO_Comics", "final_string " + final_str);
     	final_str = final_str.replaceAll(".*=\"","");
-        final_str = final_str.replaceAll("\".*","");
+        final_str = final_str.replaceAll("\"/*","");
 
     	final_title = final_title.replaceAll(".*=\"","");
-        final_title = final_title.replaceAll("\".*","");
+        final_title = final_title.replaceAll("\"/*","");
         final_title = final_title.replaceAll("&amp;","&");
 
         final_date = final_date.replaceAll(".*=\"","");
