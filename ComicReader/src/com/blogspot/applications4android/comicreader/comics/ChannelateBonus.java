@@ -6,6 +6,7 @@ import com.blogspot.applications4android.comicreader.core.Strip;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ChannelateBonus extends ArchivedComic {
 
@@ -22,7 +23,9 @@ public class ChannelateBonus extends ArchivedComic {
 		int i;
 		while((str = reader.readLine()) != null) {
 			i = str.indexOf("class=\"archive-title\"");
-			if (i != -1) {
+			String s2 = "Permanent Link: short";
+			boolean isMatched = Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(str).find();
+			if (i != -1 && !isMatched) {
 				str_temp = str;
 				str_temp=str_temp.replaceAll(".*href=\"","");
 				str_temp=str_temp.replaceAll("\".*","");
