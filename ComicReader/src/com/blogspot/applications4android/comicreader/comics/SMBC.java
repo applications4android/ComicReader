@@ -100,7 +100,7 @@ public class SMBC extends IndexedComic {
 		String final_title = null;
 		String final_index = null;
 		while ((str1 = reader.readLine()) != null) {
-			int index1 = str1.indexOf("comics/");
+			int index1 = str1.indexOf("cc-comicbody");
 			if ( index1 != -1 ) {
 				final_str = str1;
 				break;
@@ -118,6 +118,9 @@ public class SMBC extends IndexedComic {
 		image_url = image_url.replaceAll(" ","%20");
 		image_url = image_url.replaceAll("\\(","%28");
 		image_url = image_url.replaceAll("\\)","%29");
+		if ( image_url.indexOf("http") == -1 ) {
+			image_url=image_url.replaceAll("^","http://www.smbc-comics.com/");
+		}
 //Log.d("SMBC", "image_url " + image_url);
 		final_title = final_str.replaceAll(".*title=\"","");
 		final_title = final_title.replaceAll("\".*","");
