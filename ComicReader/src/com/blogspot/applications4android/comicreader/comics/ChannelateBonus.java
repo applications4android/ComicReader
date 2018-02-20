@@ -5,7 +5,11 @@ import com.blogspot.applications4android.comicreader.core.Strip;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class ChannelateBonus extends ArchivedComic {
@@ -20,25 +24,42 @@ public class ChannelateBonus extends ArchivedComic {
 		int idx = 0;
 		ArrayList<String> m_com = new ArrayList<String>(); 
 		String str,str_temp;
+		String final_date="";
 		int i;
 		while((str = reader.readLine()) != null) {
 			i = str.indexOf("class=\"archive-title\"");
 			String s2 = "Permanent Link: short";
-			boolean isMatched = Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(str).find();
-			if (i != -1 && !isMatched) {
+			if (i != -1) {
+				System.out.println("str" + str);
 				str_temp = str;
-				str_temp=str_temp.replaceAll(".*href=\"","");
-				str_temp=str_temp.replaceAll("\".*","");
-                str_temp=str_temp.replaceAll(".*com/","");
-                str_temp=str_temp.replaceFirst("/","");
-                str_temp=str_temp.replaceFirst("/","");
-                str_temp=str_temp.replaceAll("/.*","/");
-                str_temp="http://www.channelate.com/extra-panel/"+str_temp;
-				m_com.add(str_temp);
-				idx++;
+				String[] str_archive_list = str_temp.split("</tr><tr>");
+				for(String str_archive:str_archive_list){
+					String str_date = str_archive;
+					str_archive = str_archive.replaceAll(".*href=\"", "");
+					str_archive = str_archive.replaceAll("\".*", "");
+					if (str_archive.contains("comic/short")) {
+						continue;
+					} else {
+						str_date = str_date.replaceAll(".*archive-date\">", "");
+						str_date = str_date.replaceAll("</td>.*","");
+						str_date = str_date + " 2018";
+						SimpleDateFormat oneformatter = new SimpleDateFormat("MMM dd yyyy");
+						SimpleDateFormat twoformatter = new SimpleDateFormat("yyyyMMdd");
+						try {
+							Date date = oneformatter.parse(str_date);
+							final_date = twoformatter.format(date);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						final_date = "http://www.channelate.com/extra-panel/" + final_date;
+						m_com.add(final_date);
+						idx++;
+					}
+				}
 			}
 		}
 		String []m_com_urls = new String[idx];
+		Collections.reverse(m_com);
 		m_com.toArray(m_com_urls);
 	    int left, right;
 	    String temp;
@@ -52,7 +73,7 @@ public class ChannelateBonus extends ArchivedComic {
 
 	@Override
 	protected String getArchiveUrl() {
-		return "http://www.channelate.com/note-to-self-archive/";
+		return "http://www.channelate.com/comic-archives/";
 	}
 
 	@Override

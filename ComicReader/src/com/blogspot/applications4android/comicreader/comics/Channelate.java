@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import com.blogspot.applications4android.comicreader.comictypes.ArchivedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
+
+import java.util.Collections;
 import java.util.regex.Pattern;
 
 
@@ -24,17 +26,24 @@ public class Channelate extends ArchivedComic {
 		while((str = reader.readLine()) != null) {
 			i = str.indexOf("class=\"archive-title\"");
 			String s2 = "Permanent Link: short";
-			boolean isMatched = Pattern.compile(Pattern.quote(s2), Pattern.CASE_INSENSITIVE).matcher(str).find();
-            if (i != -1 && !isMatched) {
+            if (i != -1) {
+				System.out.println("str" + str);
                 str_temp = str;
-                str_temp = str_temp.replaceAll(".*href=\"", "");
-                str_temp = str_temp.replaceAll("\".*", "");
-                m_com.add(str_temp);
-                idx++;
-
+				String[] str_archive_list = str_temp.split("</tr><tr>");
+				for(String str_archive:str_archive_list){
+					str_archive = str_archive.replaceAll(".*href=\"", "");
+					str_archive = str_archive.replaceAll("\".*", "");
+					if (str_archive.contains("comic/short")) {
+						continue;
+					} else {
+						m_com.add(str_archive);
+						idx++;
+					}
+				}
 			}
 		}
 		String []m_com_urls = new String[idx];
+		Collections.reverse(m_com);
 		m_com.toArray(m_com_urls);
 	    int left, right;
 	    String temp;
@@ -48,7 +57,7 @@ public class Channelate extends ArchivedComic {
 
 	@Override
 	protected String getArchiveUrl() {
-		return "http://www.channelate.com/note-to-self-archive/";
+		return "http://www.channelate.com/comic-archives/";
 	}
 
 	@Override
@@ -62,10 +71,10 @@ public class Channelate extends ArchivedComic {
 		String final_str = null;
 		String final_title = null;
 		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("class=\"comicpane\"");
+			int index1 = str.indexOf("div id=\"comic\"");
 			if (index1 != -1) {
-				final_str = str;
-				final_title = str;
+				final_str = reader.readLine();
+				final_title = final_str;
 			}
 		}
 		final_str = final_str.replaceAll(".*src=\"","http:");
