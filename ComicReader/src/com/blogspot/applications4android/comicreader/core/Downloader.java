@@ -18,6 +18,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.blogspot.applications4android.comicreader.exceptions.ComicSDCardFull;
 
+import java.net.URL;
+import java.net.URLConnection;
+import javax.net.ssl.HttpsURLConnection;
+
 
 /**
  * Class containing utility functions for downloading the URI's
@@ -84,10 +88,9 @@ public class Downloader {
 	 * @throws ClientProtocolException 
 	 */
 	public static BufferedInputStream openConnectionStream(URI uri) throws URISyntaxException, ClientProtocolException, IOException {
-		HttpGet http = new HttpGet(uri);
-		HttpClient client = new DefaultHttpClient();
-		HttpResponse resp = (HttpResponse) client.execute(http);
-		InputStream is = resp.getEntity().getContent();
+                URL url = uri.toURL();
+                URLConnection con = url.openConnection();
+                InputStream is = con.getInputStream();
 		BufferedInputStream bis = new BufferedInputStream(is);
 		return bis;
 	}
