@@ -52,7 +52,7 @@ public class Dilbert extends DailyComic {
 			}
 		}
         if(final_str != null) {
-            final_str = final_str.replaceAll(".*src=\"", "");
+            final_str = final_str.replaceAll(".*src=\"", "http:");
             final_str = final_str.replaceAll("\".*", "");
         }
 		final_title = "Dilbert" + ": " + final_date;
