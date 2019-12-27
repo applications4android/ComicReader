@@ -74,7 +74,7 @@ public class TheDevilsPanties extends RandomIndexedComic {
 
 	@Override
 	public String getStripUrlFromId(int num) {
-		return "http://thedevilspanties.com/archives/" + num;
+		return getComicWebPageUrl() + "archives/" + num;
 	}
 
 	@Override
@@ -84,12 +84,12 @@ public class TheDevilsPanties extends RandomIndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://thedevilspanties.com/";
+                return getComicWebPageUrl();
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://thedevilspanties.com/";
+		return "https://thedevilspanties.com/";
 	}
 
 	@Override
@@ -125,7 +125,10 @@ public class TheDevilsPanties extends RandomIndexedComic {
 		// set the next and previous comic IDs from the current url's html data
 		setNextId(parseForNextId(final_next, -1));
 		setPreviousId(parseForPrevId(final_prev, -1));
-		return final_str; 
+                if (final_str.indexOf("http")==0) {
+                  return final_str;
+                }
+		return getComicWebPageUrl() + final_str; 
 	}
 
 	@Override
@@ -140,7 +143,7 @@ public class TheDevilsPanties extends RandomIndexedComic {
 		}
 		line = line.replaceAll(".*href=\"", "");
 		line = line.replaceAll("\".*", "");
-		line = line.replaceAll("/archives/", "");
+		line = line.replaceAll(".*/archives/", "");
 		try {
 			return Integer.parseInt(line);
 		}
