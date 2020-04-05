@@ -13,15 +13,20 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.blogspot.applications4android.comicreader.exceptions.ComicSDCardFull;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.HttpURLConnection;
 import javax.net.ssl.HttpsURLConnection;
 
+import android.util.Log;
 
 /**
  * Class containing utility functions for downloading the URI's
@@ -50,7 +55,22 @@ public class Downloader {
 	 * @throws ClientProtocolException 
 	 */
 	public static String downloadToString(URI uri) throws ClientProtocolException, URISyntaxException, IOException {
-		BufferedReader br = openConnection(uri);
+            return downloadToString(uri, "");
+	}
+
+	/**
+	 * Helper function to download a URI from the given url and save it to a string.
+	 * Uses URLConnection in order to set up a connection with the server and download
+	 * the URI requested.
+	 * @param uri The url of interest.
+         * @parma data Data to POST, or empty for a GET.
+	 * @return the contents of the url in a string
+	 * @throws IOException 
+	 * @throws URISyntaxException 
+	 * @throws ClientProtocolException 
+	 */
+         public static String downloadToString(URI uri, String data) throws ClientProtocolException, URISyntaxException, IOException {
+                BufferedReader br = openConnection(uri, data);
 		StringBuilder sb = new StringBuilder(SB_CAPACITY);
 		char[] buff = new char[SB_CAPACITY];
 		int len;
@@ -70,11 +90,37 @@ public class Downloader {
 	 * @throws ClientProtocolException 
 	 */
 	public static BufferedReader openConnection(URI uri) throws URISyntaxException, ClientProtocolException, IOException {
+                return openConnection(uri, "");
+	}
+
+	/**
+	 * Open a http connection with the given url
+	 * @param uri desired url
+         * @parma data Data to POST, or empty for a GET.
+	 * @return buffered reader for this url connection
+	 * @throws URISyntaxException 
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 */
+         public static BufferedReader openConnection(URI uri, String data) throws URISyntaxException, ClientProtocolException, IOException {
+           /*
 		HttpGet http = new HttpGet(uri);
 		HttpClient client = new DefaultHttpClient();
 		HttpResponse resp = (HttpResponse) client.execute(http);
 		HttpEntity entity = resp.getEntity();
 		InputStreamReader isr = new InputStreamReader(entity.getContent());
+           */
+           
+                URL url = uri.toURL();
+                HttpURLConnection con = (HttpURLConnection)url.openConnection();
+                con.setInstanceFollowRedirects (true);
+                if (data.length() > 0) {
+                  con.setRequestMethod("POST");
+                  con.setDoOutput(true);
+                  con.getOutputStream().write(data.getBytes("UTF-8"));
+                }
+		InputStreamReader isr = new InputStreamReader(con.getInputStream());
+           
 		BufferedReader br = new BufferedReader(isr, DNLD_BUFF_SIZE);
 		return br;
 	}
