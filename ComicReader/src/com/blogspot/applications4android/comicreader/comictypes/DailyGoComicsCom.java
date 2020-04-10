@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//import android.util.Log;
+import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.core.Strip;
 
@@ -53,12 +53,12 @@ public class DailyGoComicsCom extends DailyComic {
 	 * @return string containing the json url
 	 */
 	public String getCalendarJsUrl(int year, int month) {
-		return ("http://www.gocomics.com/calendar/"+mComicName+"/"+year+"/"+month);
+		return ("https://www.gocomics.com/calendar/"+mComicName+"/"+year+"/"+month);
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return ("http://www.gocomics.com/" + mComicName);
+		return ("https://www.gocomics.com/" + mComicName);
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class DailyGoComicsCom extends DailyComic {
 	 * @return the format string
 	 */
 	private String _getUrlFormat() {
-		return ("http://www.gocomics.com/" + mComicName + "/%4d/%02d/%02d/");
+		return ("https://www.gocomics.com/" + mComicName + "/%4d/%02d/%02d/");
 	}
 
 	/**

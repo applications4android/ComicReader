@@ -7,11 +7,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-//import android.util.Log;
+import java.net.URI;
+import java.net.URISyntaxException;
+import android.util.Log;
 
 import com.blogspot.applications4android.comicreader.comictypes.IndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
+import com.blogspot.applications4android.comicreader.core.Downloader;
 
 
 public class SMBC extends IndexedComic {
@@ -33,37 +36,69 @@ public class SMBC extends IndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://www.smbc-comics.com/";
+		return "https://www.smbc-comics.com/";
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://www.smbc-comics.com/";
+		return "https://www.smbc-comics.com/";
 	}
 
+        // Latest ID is no longer in the html.
+        // Do a binary search to try to find it.
 	@Override
 	protected int parseForLatestId(BufferedReader reader) throws IOException, ComicLatestException {
-		String str;
-		String final_str = null;
-		while((str = reader.readLine()) != null) {
-			int index1 = str.indexOf("buythisimg");
-			if (index1 != -1) {
-				final_str = str;
-				break;
-			}
-		}
-//Log.d("SMBC", "final_string " + final_str);
-		if(final_str == null) {
-			String msg = "Failed to get the latest id for "+this.getClass().getSimpleName();
-			ComicLatestException e = new ComicLatestException(msg);
-			throw e;
-		}
-		final_str = final_str.replaceAll(".*id%3D","");
-//Log.d("SMBC", "final_str " + final_str);
-		final_str = final_str.replaceAll("\".*","");
-//Log.d("SMBC", "final_str " + final_str);
-		return Integer.parseInt(final_str);
+          String permalink = getPermalinkFromReader (reader);
+          int lo = 5000;
+          int hi = 5500;
+          String lhi = getPermalinkForId(hi);
+
+          while (!lhi.equals (permalink)) {
+            hi = (hi-lo)*2 + lo;
+            lhi = getPermalinkForId(hi);
+          }
+
+          while (true) {
+            int mid = (lo+hi)/2;
+            String lmid = getPermalinkForId(mid);
+            if (lmid.equals (permalink)) {
+              hi = mid;
+            }
+            else {
+              lo = mid;
+            }
+            if ((hi-lo)<=1) return hi;
+          }
 	}
+
+        private String getPermalinkFromReader (BufferedReader reader) throws IOException
+        {
+          String str;
+          String final_str = null;
+          while((str = reader.readLine()) != null) {
+            int index1 = str.indexOf("permalinktext");
+            if (index1 >= 0) {
+              str = str.replaceAll(".*text\" value=\"","");
+              str = str.replaceAll("\".*","");
+              return str;
+            }
+          }
+          return "";
+        }
+
+
+        private String getPermalinkForId (int id)
+        {
+          try {
+            String url = getStripUrlFromId (id);
+            BufferedReader reader = Downloader.openConnection (new URI (url));
+            return getPermalinkFromReader (reader);
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+            return "";
+          }
+        }
 
 	@Override
 	public int addException(int id, int increment) {
@@ -78,7 +113,7 @@ public class SMBC extends IndexedComic {
 
 	@Override
 	public String getStripUrlFromId(int num) {
-		return "http://www.smbc-comics.com/?id=" + num;
+		return "https://www.smbc-comics.com/?id=" + num;
 	}
 
 	@Override
@@ -119,7 +154,7 @@ public class SMBC extends IndexedComic {
 		image_url = image_url.replaceAll("\\(","%28");
 		image_url = image_url.replaceAll("\\)","%29");
 		if ( image_url.indexOf("http") == -1 ) {
-			image_url=image_url.replaceAll("^","http://www.smbc-comics.com/");
+			image_url=image_url.replaceAll("^","https://www.smbc-comics.com/");
 		}
 //Log.d("SMBC", "image_url " + image_url);
 		final_title = final_str.replaceAll(".*title=\"","");

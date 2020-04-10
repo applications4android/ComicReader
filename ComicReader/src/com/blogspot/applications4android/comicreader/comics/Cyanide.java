@@ -9,6 +9,8 @@ import com.blogspot.applications4android.comicreader.comictypes.RandomIndexedCom
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
 
+import android.util.Log;
+
 public class Cyanide extends RandomIndexedComic {
 
 	private static final String Cyanide = "Cyanide";
@@ -30,7 +32,7 @@ public class Cyanide extends RandomIndexedComic {
 			String str;
 			String final_next = null;
 			while ((str = br.readLine()) != null) {
-				if(str.indexOf("/\" class=\"next-comic\"") != -1) {
+				if(str.indexOf("/\" class=\"nav-next\"") != -1) {
 					final_next = str;
 				}
 			}
@@ -50,7 +52,7 @@ public class Cyanide extends RandomIndexedComic {
 			String str;
 			String final_prev = null;
 			while ((str = br.readLine()) != null) {
-				if(str.indexOf("/\" class=\"previous-comic\"") != -1) {
+				if(str.indexOf("/\" class=\"nav-previous\"") != -1) {
 					final_prev = str;
 				}
 			}
@@ -79,7 +81,7 @@ public class Cyanide extends RandomIndexedComic {
 			throw e;
 		}
 		final_str = final_str.replaceAll(".*comics%2F","");
-		final_str = final_str.replaceAll("%2F.*","");
+		final_str = final_str.replaceAll("\".*","");
 		Log.d(Cyanide, "In parseForLatestId, final_str = "+final_str);
 		return Integer.parseInt(final_str);
 	}
@@ -133,10 +135,10 @@ public class Cyanide extends RandomIndexedComic {
 			if(str.indexOf("\"og:url\"") != -1) {
 				final_title = str;
 			}
-			if(str.indexOf("/\" class=\"next-comic") != -1) {
+			if(str.indexOf("/\" class=\"nav-next") != -1) {
 				final_next = str;
 			}
-			if(str.indexOf("/\" class=\"previous-comic") != -1) {
+			if(str.indexOf("/\" class=\"nav-previous") != -1) {
 				final_prev = str;
 			}
 		}
