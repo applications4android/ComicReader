@@ -2,22 +2,21 @@ package com.blogspot.applications4android.comicreader.comics;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import com.blogspot.applications4android.comicreader.comictypes.IndexedComic;
+import com.blogspot.applications4android.comicreader.comictypes.RandomIndexedComic;
 import com.blogspot.applications4android.comicreader.core.Strip;
 import com.blogspot.applications4android.comicreader.exceptions.ComicLatestException;
 
 
-
-public class AGirlandHerFed extends IndexedComic {
+public class AGirlandHerFed extends RandomIndexedComic {
 
 	@Override
 	protected String getFrontPageUrl() {
-		return "http://agirlandherfed.com/";
+		return "https://agirlandherfed.com/";
 	}
 
 	@Override
 	public String getComicWebPageUrl() {
-		return "http://agirlandherfed.com/";
+		return "https://agirlandherfed.com/";
 	}
 
 	@Override
@@ -43,17 +42,33 @@ public class AGirlandHerFed extends IndexedComic {
 
 	@Override
 	public String getStripUrlFromId(int num) {
-		return "http://agirlandherfed.com/1." + num + ".html";
+		return "https://agirlandherfed.com/1." + num + ".html";
 	}
 
 	@Override
 	protected int getIdFromStripUrl(String url) {
-		String temp = url.replaceAll("http.*/1.", "");
+		String temp = url.replaceAll("https.*/1.", "");
 		temp = temp.replaceAll(".html", "");
 		return Integer.parseInt(temp);
 	}
 
 	@Override
+	protected int parseForPrevId(String line, int def) {
+		if(line == null) {
+			return def;
+		}
+                return getIdFromStripUrl (line);
+	}
+
+	@Override
+	protected int parseForNextId(String line, int def) {
+		if(line == null) {
+			return def;
+		}
+                return getIdFromStripUrl (line);
+	}
+
+        @Override
 	protected boolean htmlNeeded() {
 		return true;
 	}
@@ -77,6 +92,61 @@ public class AGirlandHerFed extends IndexedComic {
 		final_title = final_title.replaceAll(".jpg.*","");
 		strip.setTitle("A Girl and Her Fed: 1."+final_title);
 		strip.setText("-NA-");
-		return "http://agirlandherfed.com/"+final_str;
+		return "https://agirlandherfed.com/"+final_str;
+	}
+
+
+        @Override
+	protected int getNextStripId(BufferedReader br, String url) {
+          String str;
+          try {
+            while ((str = br.readLine()) != null) {
+              int i = str.indexOf("next.png");
+              if (i != -1) {
+                int i2 = str.lastIndexOf ("href=\"1.", i);
+                if (i2 != -1) {
+                  i2 += 8;
+                  int i3 = str.indexOf (".html", i2);
+                  if (i3 != -1) {
+                    return Integer.parseInt (str.substring (i2, i3));
+                  }
+                }
+              }
+            }
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+          }
+          return 0;
+        }
+
+        @Override
+	protected int getPreviousStripId(BufferedReader br, String url) {
+          String str;
+          try {
+            while ((str = br.readLine()) != null) {
+              int i = str.indexOf("back.png");
+              if (i != -1) {
+                int i2 = str.lastIndexOf ("href=\"1.", i);
+                if (i2 != -1) {
+                  i2 += 8;
+                  int i3 = str.indexOf (".html", i2);
+                  if (i3 != -1) {
+                    return Integer.parseInt (str.substring (i2, i3));
+                  }
+                }
+              }
+            }
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+          }
+          return 0;
+        }
+
+	@Override
+	protected String getRandUrl() {
+          // Not implemented.
+          return getStripUrlFromId (1);
 	}
 }
